@@ -2,7 +2,8 @@ import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../GreyPage/MainPage.css';
-
+import SelectGame from "./GameSelect";
+import Tournaments from "../tournaments/tournaments";
 const images = [
     {image: require('../images/c1.png')},
     {image: require('../images/c2.png')},
@@ -12,25 +13,26 @@ const images = [
 
 const MainPage = () => {
     return (
+        <>
+        <SelectGame/>
         <div className="MainPage">
             <div className="carousel-container">
-                <Carousel showThumbs={false} width={600}>
+                <Carousel showThumbs={false} width={1000} interval={1500} autoPlay infiniteLoop>
                     {images.map((images, index) => 
                         {
                             return <img key={'image-key'+index} src={images.image} style=
                             {
                                 {
-                                    height: 400,
+                                    height: 500,
                                     borderRadius: 15
                                 }
                             }/>
                         })}
                 </Carousel>
             </div>
-            <div>
-                
-            </div>
         </div>
+        <Tournaments/>
+        </>
     );
 }
 
