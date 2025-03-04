@@ -87,7 +87,7 @@ const card = testtournament.map((info, index) => {
     //             width: 500,
     //             height: 100,
     //             margin: 200,
-    //             backgroundColor: 'black',
+    //             backgroundColor: 'black',-
     //             color: 'white'
     //         }
     //     }>LOAD MORE</button>

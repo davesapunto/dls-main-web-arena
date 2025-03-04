@@ -4,6 +4,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../GreyPage/MainPage.css';
 import SelectGame from "./GameSelect";
 import Tournaments from "../tournaments/tournaments";
+import Header from "../Header/header";
+import Footer from "../Footer/Footer";
+
 const images = [
     {image: require('../images/c1.png')},
     {image: require('../images/c2.png')},
@@ -14,6 +17,7 @@ const images = [
 const MainPage = () => {
     return (
         <>
+        <Header/>
         <SelectGame/>
         <div className="MainPage">
             <div className="carousel-container">
@@ -32,6 +36,7 @@ const MainPage = () => {
             </div>
         </div>
         <Tournaments/>
+        <Footer/>
         </>
     );
 }
