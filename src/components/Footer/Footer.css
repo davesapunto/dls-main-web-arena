@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Squada+One&display=swap');
+
+body {
+  font-family: 'Bai Jamjuree', sans-serif;
+}
+
+/* Footer General Styles */
+.footer {
+    background-color: black;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+  }
+  
+  /* Container */
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20 20px;
+    display: flex;
+    gap: 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  /* Section Box */
+  .footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 280px;
+  }
+  
+  /* Section Titles */
+  .footer-section h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* About Us & Location */
+  .footer-section p {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    line-height: 1.6;
+    text-align: justify;
+  }
+  
+  /* Contact Section */
+  .footer-section a {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .footer-section a:hover {
+    color: #a43690;
+    transition: 0.3s;
+  }
+  
+  /* Social Media Icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .social-icons a {
+    color: white;
+    font-size: 1.8rem;
+    transition: 0.3s;
+  }
+  
+  .social-icons a:hover {
+    color: #a43690;
+  }
+  
+  /* Copyright */
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #b3b3b3;
+  }
