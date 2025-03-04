@@ -20,7 +20,7 @@
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #282c64;
+    background-color: #8B0000;
     font-family: 'Bai Jamjuree';
     cursor: pointer;
 }
