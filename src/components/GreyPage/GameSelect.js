@@ -31,10 +31,20 @@ const SelectGameModal = () => {
         }
         className="GameModal">
             <div className="modal-contents">
-                <h1>SELECT A GAME</h1>
+                <h1 style=
+                {
+                    {
+                        marginBottom: 0
+                    }
+                }>SELECT A GAME</h1>
                 <div className="modal-card">
-                    <div className="card">
-                        <h1>TEST</h1>
+                    <div className="card-modal">
+                        <h1>MOBILE LEGENDS</h1>
+                        <img src={require('../images/GIFS/layla-mlbb.gif')}/>
+                    </div>
+                    <div className="card-modal">
+                        <h1>VALORANT</h1>
+                        <img src={require('../images/GIFS/222056.gif')}/>
                     </div>
                 </div>
             </div>
