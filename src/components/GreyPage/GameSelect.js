@@ -30,6 +30,14 @@ const SelectGameModal = () => {
             {duration: .2}
         }
         className="GameModal">
+            <div className="modal-contents">
+                <h1>SELECT A GAME</h1>
+                <div className="modal-card">
+                    <div className="card">
+                        <h1>TEST</h1>
+                    </div>
+                </div>
+            </div>
         </motion.div>
     );
 }

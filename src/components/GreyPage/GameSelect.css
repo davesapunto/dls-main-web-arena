@@ -19,6 +19,24 @@
     z-index: 100; 
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.8); 
 }
+
+.modal-contents {
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-card {
+    width: inherit;
+    height: 450px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
 .game-select {
     font-family: 'Bai Jamjuree';
     font-weight: bold;
