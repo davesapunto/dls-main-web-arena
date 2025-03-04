@@ -36,9 +36,21 @@ const Footer = () => {
         {/* Location */}
         <div className="footer-section">
           <h3>LOCATION</h3>
-          <p>
-            108 Central Building, E. Rodriguez Ave., Bagumbayan, Quezon City, Philippines
-          </p>
+          <a href="https://maps.app.goo.gl/UBVABWZKGMVDL95Z7" target="_blank" rel="noopener noreferrer"
+            style={{ color: "white", textDecoration: "underline" }} 
+            >108 Central Building, E. Rodriguez Ave., Bagumbayan, Quezon City, Philippines
+          </a>
+          <a 
+        href="https://maps.app.goo.gl/ssxvA7wdgGeHmtTv7" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <img 
+          src="/assets/Dark League Studio Loc.png" 
+          alt="Dark League Studios Location" 
+          style={{ width: "75%", maxWidth: "300px", marginTop: "10px", borderRadius: "8px" }}
+        />
+      </a>
         </div>
       </div>
 
