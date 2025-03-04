@@ -1,12 +1,36 @@
 import React from "react";
 import '../GreyPage/GameSelect.css';
 import { useState } from "react";
-
+import { motion, AnimatePresence } from "motion/react";
 
 const SelectGameModal = () => {
     return (
-        <div className="GameModal">
-        </div>
+        <motion.div 
+        initial=
+        {
+            {
+                y: -500
+            }
+        }
+        animate=
+        {
+            {
+                opacity: 1,
+                y: 1
+            }
+        }
+        exit=
+        {
+            {
+                y: -500
+            }
+        }
+        transition=
+        {
+            {duration: .2}
+        }
+        className="GameModal">
+        </motion.div>
     );
 }
 
@@ -27,7 +51,9 @@ const SelectGame = () => {
                 <p>PLATFORM</p>
             </div>
         </div>
-        {active ? <SelectGameModal/> : null}
+        <AnimatePresence>
+            {active ? <SelectGameModal/> : null}
+        </AnimatePresence>
         </>
     );
 }
