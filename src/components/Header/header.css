@@ -69,7 +69,8 @@
     background-position: top;
     background-repeat: no-repeat;
     height: 80vh; /* Ensures the background covers the viewport height */
-    width: 94.1%;
+    width: 100%;
+    z-index: 500;
   }
   
   
