@@ -31,7 +31,7 @@ const MainPage = () => {
                             />
                                 {/* Register Now Button */}
                             <a href={item.link} className="register-button">
-                                        REGISTER NOW
+                                        REGISTER NOW!
                             </a>
                             </div>
                         ))}
