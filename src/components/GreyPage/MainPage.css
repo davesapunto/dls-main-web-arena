@@ -13,3 +13,28 @@
     justify-content: center;
     margin-bottom: 1px;
 }
+
+.carousel-slide {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-button:hover {
+    background-color: darkred;
+}
