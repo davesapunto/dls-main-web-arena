@@ -25,11 +25,11 @@ const Footer = () => {
         <p></p>
           <h4 className="mt-4">LIKE AND FOLLOW</h4>
           <div className="social-icons">
-            <a href="https://www.tiktok.com/@darkleaguestudios"><FaTiktok /></a>
-            <a href="https://www.facebook.com/darkIeaguestudios"><FaFacebook /></a>
-            <a href="https://www.instagram.com/darkleague_studios/"><FaInstagram /></a>
-            <a href="https://www.youtube.com/channel/DarkLeagueStudios"><FaYoutube /></a>
-            <a href="https://www.linkedin.com/company/darkleaguestudios/posts/?feedView=all"><FaLinkedin /></a>
+            <a href="https://www.tiktok.com/@darkleaguestudios"target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
+            <a href="https://www.facebook.com/darkIeaguestudios"target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+            <a href="https://www.instagram.com/darkleague_studios/"target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+            <a href="https://www.youtube.com/channel/DarkLeagueStudios"target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+            <a href="https://www.linkedin.com/company/darkleaguestudios/posts/?feedView=all"target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
           </div>
         </div>
 
