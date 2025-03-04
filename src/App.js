@@ -4,6 +4,8 @@ import MainPage from './components/GreyPage/MainPage';
 import SelectGame from './components/GreyPage/GameSelect';
 import Header from './components/Header/header';
 import Footer from './components/Footer/Footer';
+import Signup from './components/Signin/SignIn';
+
 function App() {
   return (
     <div>

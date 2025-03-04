@@ -1,6 +1,6 @@
 import React from "react";
 import '../Header/header.css';
-
+import Signup from "../Signin/SignIn";
 const Header = () => {
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
@@ -11,7 +11,7 @@ const Header = () => {
           <nav>
             <ul className="nav-links">
               <li><a href="#">Home</a></li>
-              <li><a href="#">Organize Tournaments</a></li>
+              <li><a href="#">Organize Tournament s</a></li>
               <li><a href="#">Arena</a></li>
               <li><a href="#">Feedback</a></li>
               <li><a href="#">News</a></li>
