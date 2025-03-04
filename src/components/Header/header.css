@@ -6,7 +6,7 @@
   
   /* Header & Navigation */
   .header {
-    width: 10vw; /* Full width */
+    width: 100vw; /* Full width */
     background-color: #1e1f26; /* Dark background */
     padding: 15px 20px;
     position: fixed; /* Keep it at the top */
