@@ -6,7 +6,7 @@ import SelectGame from "./GameSelect";
 import Tournaments from "../tournaments/tournaments";
 import Header from "../Header/header";
 import Footer from "../Footer/Footer";
-import Signup from "../Signin/SignIn";
+import signin from '../Signin/SignIn.js';
 
 const images = [
     { image: require('../images/c1.png'), link: "/register" },

@@ -69,6 +69,7 @@
     height: 80vh; /* Ensures the background covers the viewport height */
     width: 100%;
     z-index: 500;
+    width: 94.6%;
   }
   
   
