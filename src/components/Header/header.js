@@ -22,8 +22,14 @@ const Header = (signin) => {
 
       {/* Main Content */}
       
-      {signin.isTrue ? <Signup/> : <main className="content" style={{ backgroundImage: `url(${require('../images/background1.png')})` }}>
-      </main>}
+      {signin.isTrue ? <Signup/> : 
+      <main className="content" 
+      style=
+      {
+        { 
+          backgroundImage: `url(${require('../images/background1.png')})` 
+        }
+      }/>}
 
       
     </div>
