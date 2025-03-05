@@ -12,9 +12,6 @@ const MainContent = () => {
             <Element name="home">
             <div className="main-content">
 
-                <div>
-                    CREATE, ORGANIZE, AND JOIN <br /> TOURNAMENTS
-                </div>
             </div>
         </Element>
         </div>

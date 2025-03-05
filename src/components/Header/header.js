@@ -33,8 +33,9 @@ const Header = (props) => {
           <nav>
             <ul className="nav-links">
               <Link to="home" smooth={true} duration={500}><li onClick={() => setSignin(false)}>Home</li></Link>
-              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
-              <li>Feedback</li>
+              <Link to="org_tourna" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
+              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Tournaments</li></Link>
+              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Feedback</li></Link>
               <li>News</li>
               <li><a className = "sign-in" 
               onClick={() => {active ? setActive(false) : setActive(true)}}>
