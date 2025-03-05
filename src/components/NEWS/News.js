@@ -1,11 +1,14 @@
 import React from "react";
 import '../NEWS/news.css';
+import { Element } from "react-scroll";
 
 const NewsPage = () => {
     return (
-        <div className="news">
+        <Element name="News">
+            <div className="news">
             
-        </div>
+            </div>
+        </Element>
     );
 }
 
