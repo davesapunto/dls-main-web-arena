@@ -6,7 +6,7 @@ const NewsPage = () => {
     return (
         <Element name="News">
             <div className="news">
-            
+                
             </div>
         </Element>
     );
