@@ -6,11 +6,11 @@ import Signup from "../Signin/SignIn";
 import MainContent from "./mainContent";
 import { Link } from "react-scroll";
 
-const Header = () => {
+const Header = (props) => {
 
   const [signin, setSignin] = useState(false);
   const [active, setActive] = useState(false);
-  
+
   const SignInButton = () => {
     return(
     <div className = "SignInButton">
@@ -24,16 +24,18 @@ const Header = () => {
     )
   }
 
+  
+
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
-      <header className="header">
+      <header className={`${props.headerclass}`}>
         <div className="nav-container">
           <img src={require('../images/logo.png')} alt="Dark League Arena Logo" className="logo" />
           <nav>
             <ul className="nav-links">
               <Link to="home" smooth={true} duration={500}><li onClick={() => setSignin(false)}>Home</li></Link>
-              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Tournaments</li></Link>
+              <Link to="tournaments" smooth={true} duration={500} offset={-180}><li>Tournaments</li></Link>
               <li>Organize Tournaments</li>
               <li>Feedback</li>
               <Link to="News" smooth={true} duration={500}><li>News</li></Link>

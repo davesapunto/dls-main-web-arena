@@ -107,7 +107,7 @@ const Tournaments = () => {
     return (
         <Element name="tournaments">
             <div className="Tournaments">
-            <h1 className="heading">TOURNAMENTS AND EVENTS</h1>
+            <h1 className="heading">TOURNAMENTS</h1>
             <div className="Tournament-Container">
                 {card}
             </div>
