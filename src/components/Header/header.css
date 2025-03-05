@@ -84,7 +84,7 @@
   }
 
   .sign-in{
-    margin-left: 105vh;
+    margin-left: 115vh;
   }
 
   .SignInButton{
@@ -93,7 +93,7 @@
     z-index: 5;
     background-color: #1e1f26;
     position: fixed;
-    transform: translateY(2vh) translateX(150vh);
+    transform: translateY(7.5vh) translateX(170vh);
     border-radius: 10px;
     display: grid;
     grid-row: 10;
