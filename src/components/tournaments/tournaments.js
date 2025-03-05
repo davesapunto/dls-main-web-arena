@@ -1,5 +1,6 @@
 import React from "react";
 import '../tournaments/Tournaments.css';
+import { Element } from "react-scroll";
 
 const testtournament = [
     {
@@ -104,12 +105,14 @@ const card = testtournament.map((info, index) => {
 
 const Tournaments = () => {
     return (
-        <div className="Tournaments">
+        <Element name="tournaments">
+            <div className="Tournaments">
             <h1 className="heading">TOURNAMENTS AND EVENTS</h1>
             <div className="Tournament-Container">
                 {card}
             </div>
         </div>
+        </Element>
     );
 }
 

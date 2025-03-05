@@ -4,19 +4,26 @@ import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import Signup from "../Signin/SignIn";
 import MainContent from "./mainContent";
+import { Link } from "react-scroll";
 
-const Header = (signin) => {
+const Header = () => {
 
+  const [signin, setSignin] = useState(false);
+  const [active, setActive] = useState(false);
+  
   const SignInButton = () => {
     return(
     <div className = "SignInButton">
-      <a href="#">Sign In</a>
+      <a href="#" onClick={() => 
+        {
+          setSignin(true)
+          setActive(false)
+        }}>Sign In</a>
       <a href="#">Sign Up</a>
     </div>
     )
   }
 
-  const [active, setActive] = useState(false);
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
@@ -25,11 +32,10 @@ const Header = (signin) => {
           <img src={require('../images/logo.png')} alt="Dark League Arena Logo" className="logo" />
           <nav>
             <ul className="nav-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Organize Tournament</a></li>
-              <li><a href="#">Arena</a></li>
-              <li><a href="#">Feedback</a></li>
-              <li><a href="#">News</a></li>
+              <Link to="home" smooth={true} duration={500}><li onClick={() => setSignin(false)}>Home</li></Link>
+              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
+              <li>Feedback</li>
+              <li>News</li>
               <li><a className = "sign-in" 
               onClick={() => {active ? setActive(false) : setActive(true)}}>
                 <FaUser />
@@ -42,7 +48,7 @@ const Header = (signin) => {
 
       {/* Main Content */}
       
-      {signin.isTrue ? <Signup/> : <MainContent/>}
+      {signin ? <Signup/> : <MainContent/>}
     
       
     </div>

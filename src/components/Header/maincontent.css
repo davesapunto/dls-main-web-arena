@@ -3,4 +3,5 @@
     height: 100vh;
     background-color: white;
     background-image: url('../images/background2.png');
+    z-index: 999;
 }
