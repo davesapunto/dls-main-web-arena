@@ -7,6 +7,7 @@ import Tournaments from "../tournaments/tournaments";
 import Header from "../Header/header";
 import Footer from "../Footer/Footer";
 import signin from '../Signin/SignIn.js';
+import NewsPage from "../NEWS/News.js";
 
 const images = [
     { image: require('../images/c1.png'), link: "/register" },
@@ -32,7 +33,7 @@ const MainPage = () => {
         <>
             <Header isTrue={signin}/>
             {signin ? null : <Page/>}
-
+            <NewsPage/>
             <Footer />
         </>
     );
