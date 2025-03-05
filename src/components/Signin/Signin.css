@@ -1,6 +1,9 @@
 body {
     background-color: #1a1c23; /* Dark Background */
     font-family: Arial, sans-serif;
+    background-image: url('../images/GIFS/222056.gif');
+    background-repeat: no-repeat;
+    background-size: contain
   }
   
   .signup-container {
@@ -26,8 +29,8 @@ body {
   }
   
   input {
-    width: 100%;
-    padding: 12px;
+    width: 95%;
+    padding: 10px;
     margin: 10px 0;
     border: none;
     border-radius: 8px;

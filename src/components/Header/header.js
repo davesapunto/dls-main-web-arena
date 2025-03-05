@@ -1,7 +1,7 @@
 import React from "react";
 import '../Header/header.css';
 import Signup from "../Signin/SignIn";
-const Header = () => {
+const Header = (signin) => {
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
@@ -11,7 +11,7 @@ const Header = () => {
           <nav>
             <ul className="nav-links">
               <li><a href="#">Home</a></li>
-              <li><a href="#">Organize Tournament s</a></li>
+              <li><a href="#">Organize Tournament</a></li>
               <li><a href="#">Arena</a></li>
               <li><a href="#">Feedback</a></li>
               <li><a href="#">News</a></li>
@@ -21,8 +21,9 @@ const Header = () => {
       </header>
 
       {/* Main Content */}
-      <main className="content" style={{ backgroundImage: `url(${require('../images/background1.png')})` }}>
-      </main>
+      
+      {signin.isTrue ? <Signup/> : <main className="content" style={{ backgroundImage: `url(${require('../images/background1.png')})` }}>
+      </main>}
 
       
     </div>

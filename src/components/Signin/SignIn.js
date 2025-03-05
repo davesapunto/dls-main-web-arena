@@ -7,6 +7,7 @@ import '../Signin/Signin.css'; // Import CSS
 
 const Signup = () => {
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
+  const [C_PASSWORD, setC_PASSWORD] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,7 +52,7 @@ const Signup = () => {
         </div>
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-
+        <input type="password" name="password" placeholder="Confirm Password" value={C_PASSWORD} onChange={(e) => setC_PASSWORD(e.target.value)} required />
         <div className="social-buttons">
           <button type="button" className="facebook-btn" onClick={handleFacebookSignup}>
             <FaFacebook size={24} color="white" />

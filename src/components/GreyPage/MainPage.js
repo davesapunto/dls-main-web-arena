@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../GreyPage/MainPage.css';
@@ -15,11 +15,10 @@ const images = [
     { image: require('../images/c4.png'), link: "/register" }
 ];
 
-const MainPage = () => {
+const Page = () => {
     return (
         <>
-            <Header />
-            <SelectGame />
+        <SelectGame />
             <div className="MainPage">
                 <div className="carousel-container">
                 <Carousel showThumbs={false} width={1000} interval={1500} autoPlay infiniteLoop>
@@ -40,6 +39,19 @@ const MainPage = () => {
                 </div>
             </div>
             <Tournaments />
+            </>
+    );
+}
+
+const MainPage = () => {
+
+    const [signin , setSignin] = useState(true);
+
+    return (
+        <>
+            <Header isTrue={signin}/>
+            {signin ? null : <Page/>}
+
             <Footer />
         </>
     );
