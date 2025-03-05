@@ -46,7 +46,7 @@ const Footer = () => {
         rel="noopener noreferrer"
       >
         <img 
-          src="/assets/Dark League Studio Loc.png" 
+          src={require('../images/Dark League Studio Loc.png')} 
           alt="Dark League Studios Location" 
           style={{ width: "75%", maxWidth: "300px", marginTop: "10px", borderRadius: "8px" }}
         />

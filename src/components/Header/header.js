@@ -4,19 +4,26 @@ import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import Signup from "../Signin/SignIn";
 import MainContent from "./mainContent";
+import { Link } from "react-scroll";
 
-const Header = (signin) => {
+const Header = () => {
 
+  const [signin, setSignin] = useState(false);
+  const [active, setActive] = useState(false);
+  
   const SignInButton = () => {
     return(
     <div className = "SignInButton">
-      <a href="#">Sign In</a>
+      <a href="#" onClick={() => 
+        {
+          setSignin(true)
+          setActive(false)
+        }}>Sign In</a>
       <a href="#">Sign Up</a>
     </div>
     )
   }
 
-  const [active, setActive] = useState(false);
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
@@ -42,9 +49,10 @@ const Header = (signin) => {
 
       {/* Main Content */}
       
-      {signin.isTrue ? <Signup/> : <MainContent/>}
+      {signin ? <Signup/> : <MainContent/>}
     
       
+
     </div>
     );
 }
