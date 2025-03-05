@@ -26,7 +26,7 @@ const Header = (signin) => {
           <nav>
             <ul className="nav-links">
               <li><a href="#">Home</a></li>
-              <li><a href="#">Organize Tournament</a></li>
+              <li><a href="tournaments">Organize Tournament</a></li>
               <li><a href="#">Arena</a></li>
               <li><a href="#">Feedback</a></li>
               <li><a href="#">News</a></li>
