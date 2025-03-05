@@ -5,10 +5,10 @@ const MainContent = () => {
     return (
         <Element name="home">
             <div className="main-content">
-            <div className="text">
-                <h1>TEST</h1>
+                <div>
+                    CREATE, ORGANIZE, AND JOIN <br /> TOURNAMENTS
+                </div>
             </div>
-        </div>
         </Element>
     );
 }
