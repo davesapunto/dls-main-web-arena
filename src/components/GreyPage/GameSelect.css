@@ -81,17 +81,19 @@
     font-family: 'Bai Jamjuree';
     font-weight: bold;
     font-size: 20px;
-    background-color: #282434;
+    background-color: black;
     width: 50%;
     height: 100px;
     text-align: center;
     border: 1px solid grey;
-    border-top: none;
-    border-left: none;
-    border-bottom: none;
+
     cursor: pointer;
     z-index: 999;
     transition: background-color 0.3s ease;
+}
+
+.game-select p {
+    margin-top: 35px;
 }
 
 .game-select:hover {

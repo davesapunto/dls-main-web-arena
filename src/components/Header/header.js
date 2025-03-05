@@ -1,6 +1,8 @@
 import React from "react";
 import '../Header/header.css';
 import Signup from "../Signin/SignIn";
+import MainContent from "./mainContent";
+
 const Header = (signin) => {
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
@@ -22,15 +24,8 @@ const Header = (signin) => {
 
       {/* Main Content */}
       
-      {signin.isTrue ? <Signup/> : 
-      <main className="content" 
-      style=
-      {
-        { 
-          backgroundImage: `url(${require('../images/background1.png')})` 
-        }
-      }/>}
-
+      {signin.isTrue ? <Signup/> : <MainContent/>}
+    
       
     </div>
     );

@@ -117,7 +117,8 @@ const SelectGame = () => {
                 {
                     setPlatform(false)
                     active ? setActive(false) : setActive(true)
-                }}>
+                }}
+            >
                 <p>SELECT GAME</p>
             </div>
             <div className="game-select" onClick={() => 
