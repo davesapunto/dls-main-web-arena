@@ -10,7 +10,7 @@ const Header = (props) => {
 
   const [signin, setSignin] = useState(false);
   const [active, setActive] = useState(false);
-
+  
   const SignInButton = () => {
     return(
     <div className = "SignInButton">
@@ -24,8 +24,6 @@ const Header = (props) => {
     )
   }
 
-  
-
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
@@ -34,19 +32,10 @@ const Header = (props) => {
           <img src={require('../images/logo.png')} alt="Dark League Arena Logo" className="logo" />
           <nav>
             <ul className="nav-links">
-
-              <li><a href="#">Home</a></li>
-              <li><a href="tournaments">Organize Tournament</a></li>
-              <li><a href="#">Arena</a></li>
-              <li><a href="#">Feedback</a></li>
-              <li><a href="#">News</a></li>
-
               <Link to="home" smooth={true} duration={500}><li onClick={() => setSignin(false)}>Home</li></Link>
-              <Link to="tournaments" smooth={true} duration={500} offset={-180}><li>Tournaments</li></Link>
-              <li>Organize Tournaments</li>
+              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
               <li>Feedback</li>
-              <Link to="News" smooth={true} duration={500}><li>News</li></Link>
-
+              <li>News</li>
               <li><a className = "sign-in" 
               onClick={() => {active ? setActive(false) : setActive(true)}}>
                 <FaUser />

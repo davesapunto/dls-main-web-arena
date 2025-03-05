@@ -1,5 +1,6 @@
-
-.app-container {
+  
+@media (min-width: 1800px){
+  .app-container {
     display: flex;
     flex-direction: column;
     min-height: 80vh;
@@ -17,6 +18,7 @@
     align-items: center;
     z-index: 1000; /* Keep it above everything */
     transition: background-color .3s ease;
+    color: white
   }
 
   .header-transparent {
@@ -30,6 +32,7 @@
     align-items: center;
     z-index: 1000; /* Keep it above everything */
     transition: background-color .3s ease;
+    color: white;
   }
   
   .nav-container {
@@ -38,34 +41,6 @@
     justify-content: flex-start; /* Align everything to the left */
     width: 100%;
   }
-
-  
-@media (min-width: 1800px){
-  .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    
-    /* Header & Navigation */
-    .header {
-      width: 100vw; /* Full width */
-      background-color: black; /* Dark background */
-      padding: 15px 20px;
-      position: fixed; /* Keep it at the top */
-      top: 0;
-      left: 0; /* Align it fully to the left */
-      display: flex;
-      align-items: center;
-      z-index: 1000; /* Keep it above everything */
-    }
-    
-    .nav-container {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start; /* Align everything to the left */
-      width: 100%;
-    }
     
     .logo {
       height: 50px; /* Adjust logo size */
@@ -129,7 +104,7 @@
 
   
     .sign-in{
-      margin-left: 115vh;
+      margin-left: 125vh;
     }
 
     .SignInButton{
@@ -138,7 +113,7 @@
       z-index: 5;
       background-color: black;
       position: fixed;
-      transform: translateY(7.5vh) translateX(170vh);
+      transform: translateY(7.5vh) translateX(165vh);
       border-radius: 10px;
       display: grid;
       grid-row: 10;
@@ -150,8 +125,4 @@
       color: white;
       text-decoration: none;
     }
-  }
-
-  @media (min-width: 1400px){
-
   }
