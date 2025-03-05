@@ -2,13 +2,52 @@
     width: 100%;
     height: 80vh;
     background-color: white;
-
     background-image: url('../images/background1.png');
     z-index: 1000;
-
     background-image: url('../images/background4.png');
     background-repeat: no-repeat;
     object-fit: contain;
     z-index: 5000;
 
 }
+
+.content-text{
+    font-family: 'Bai Jamjuree';
+    font-weight: bold;
+    width: 80vh;
+    height: 50vh;
+    transform: translateY(20vh) translateX(119vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    text-align: center;
+    flex-direction: column;
+    color: white;
+}
+.content-text p{
+    font-size: 20px;
+}
+
+.content-box{
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+    width: 30vh;
+    height: 8vh;
+    background-color: #FE5425;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+}
+.content-box:hover{
+    background-color: #fe5426;
+}
+
+.content-box::after{
+    background-color: #8a1e01;
+}
+
+
