@@ -3,6 +3,8 @@ import '../Header/header.css';
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import Signup from "../Signin/SignIn";
+import MainContent from "./mainContent";
+
 const Header = (signin) => {
 
   const SignInButton = () => {
@@ -40,15 +42,8 @@ const Header = (signin) => {
 
       {/* Main Content */}
       
-      {signin.isTrue ? <Signup/> : 
-      <main className="content" 
-      style=
-      {
-        { 
-          backgroundImage: `url(${require('../images/background1.png')})` 
-        }
-      }/>}
-
+      {signin.isTrue ? <Signup/> : <MainContent/>}
+    
       
     </div>
     );
