@@ -58,6 +58,7 @@
     
     .nav-links li {
       display: inline-block;
+      cursor: pointer;
     }
     
     .nav-links li a {
@@ -105,7 +106,7 @@
 
   
     .sign-in{
-      margin-left: 125vh;
+      margin-left: 110vh;
     }
 
     .SignInButton{

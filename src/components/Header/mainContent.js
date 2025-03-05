@@ -13,6 +13,7 @@ const MainContent = () => {
         }>
             <Element name="home">
             <div className="main-content">
+
                 <div className = "content-text">
                     CREATE, ORGANIZE, AND JOIN <br /> TOURNAMENTS
                     <p>Join us and ignite the gamer within you!</p>
@@ -27,6 +28,9 @@ const MainContent = () => {
                     JOIN US NOW!
                     </button>
                 </div>
+
+
+
             </div>
         </Element>
         </div>
