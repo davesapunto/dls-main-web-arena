@@ -25,20 +25,32 @@ const Footer = () => {
         <p></p>
           <h4 className="mt-4">LIKE AND FOLLOW</h4>
           <div className="social-icons">
-            <a href="#"><FaTiktok /></a>
-            <a href="#"><FaFacebook /></a>
-            <a href="#"><FaInstagram /></a>
-            <a href="#"><FaYoutube /></a>
-            <a href="#"><FaLinkedin /></a>
+            <a href="https://www.tiktok.com/@darkleaguestudios"target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
+            <a href="https://www.facebook.com/darkIeaguestudios"target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+            <a href="https://www.instagram.com/darkleague_studios/"target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+            <a href="https://www.youtube.com/channel/DarkLeagueStudios"target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+            <a href="https://www.linkedin.com/company/darkleaguestudios/posts/?feedView=all"target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
           </div>
         </div>
 
         {/* Location */}
         <div className="footer-section">
           <h3>LOCATION</h3>
-          <p>
-            108 Central Building, E. Rodriguez Ave., Bagumbayan, Quezon City, Philippines
-          </p>
+          <a href="https://maps.app.goo.gl/UBVABWZKGMVDL95Z7" target="_blank" rel="noopener noreferrer"
+            style={{ color: "white", textDecoration: "underline" }} 
+            >108 Central Building, E. Rodriguez Ave., Bagumbayan, Quezon City, Philippines
+          </a>
+          <a 
+        href="https://maps.app.goo.gl/ssxvA7wdgGeHmtTv7" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <img 
+          src="/assets/Dark League Studio Loc.png" 
+          alt="Dark League Studios Location" 
+          style={{ width: "75%", maxWidth: "300px", marginTop: "10px", borderRadius: "8px" }}
+        />
+      </a>
         </div>
       </div>
 

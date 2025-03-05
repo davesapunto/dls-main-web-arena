@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../GreyPage/MainPage.css';
@@ -6,39 +6,55 @@ import SelectGame from "./GameSelect";
 import Tournaments from "../tournaments/tournaments";
 import Header from "../Header/header";
 import Footer from "../Footer/Footer";
+import Signup from "../Signin/SignIn";
 
 const images = [
-    {image: require('../images/c1.png')},
-    {image: require('../images/c2.png')},
-    {image: require('../images/c3.png')},
-    {image: require('../images/c4.png')}
-]
+    { image: require('../images/c1.png'), link: "/register" },
+    { image: require('../images/c2.png'), link: "/register" },
+    { image: require('../images/c3.png'), link: "/register" },
+    { image: require('../images/c4.png'), link: "/register" }
+];
 
-const MainPage = () => {
+const Page = () => {
     return (
         <>
-        <Header/>
-        <SelectGame/>
-        <div className="MainPage">
-            <div className="carousel-container">
+        <SelectGame />
+            <div className="MainPage">
+                <div className="carousel-container">
                 <Carousel showThumbs={false} width={1000} interval={1500} autoPlay infiniteLoop>
-                    {images.map((images, index) => 
-                        {
-                            return <img key={'image-key'+index} src={images.image} style=
-                            {
-                                {
-                                    height: 500,
-                                    borderRadius: 15
-                                }
-                            }/>
-                        })}
-                </Carousel>
+                    {images.map((item, index) => (
+                        <div key={'image-key' + index} style={{ position: "relative" }}>
+                            <img 
+                                src={item.image} 
+                                style={{ height: 500, borderRadius: 15 }} 
+                                alt={`Slide ${index + 1}`}
+                            />
+                                {/* Register Now Button */}
+                            <a href={item.link} className="register-button">
+                                        REGISTER NOW!
+                            </a>
+                            </div>
+                        ))}
+                    </Carousel>
+                </div>
             </div>
-        </div>
-        <Tournaments/>
-        <Footer/>
-        </>
+            <Tournaments />
+            </>
     );
 }
 
-export default MainPage
+const MainPage = () => {
+
+    const [signin , setSignin] = useState(true);
+
+    return (
+        <>
+            <Header isTrue={signin}/>
+            {signin ? null : <Page/>}
+
+            <Footer />
+        </>
+    );
+};
+
+export default MainPage;
