@@ -17,9 +17,6 @@ const MainContent = () => {
                 </div>
             </div>
         </Element>
-
-            </div>
-            </Element>
         </div>
 
     );
