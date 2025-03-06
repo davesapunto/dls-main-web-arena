@@ -2,6 +2,10 @@ import React from "react";
 import '../GreyPage/GameSelect.css';
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Tournaments from "../tournaments/tournaments";
+
+export var selectedGame = localStorage.getItem('game');
+
 
 const SelectGameModal = () => {
     return (
@@ -38,15 +42,27 @@ const SelectGameModal = () => {
                     }
                 }>SELECT A GAME</h1>
                 <div className="modal-card">
-                    <div className="card-modal">
+                    <div className="card-modal" onClick={() => {
+                        selectedGame = 'MOBILE LEGENDS'
+                        localStorage.setItem('game', selectedGame);
+                        window.location.reload();
+                    }}>
                         <h1>MOBILE LEGENDS</h1>
                         <img src={require('../images/GIFS/layla-mlbb.gif')}/>
                     </div>
-                    <div className="card-modal">
+                    <div className="card-modal" onClick={() => {
+                        selectedGame = 'VALORANT'
+                        localStorage.setItem('game', selectedGame);
+                        window.location.reload();
+                    }}>
                         <h1>VALORANT</h1>
                         <img src={require('../images/GIFS/222056.gif')}/>
                     </div>
-                    <div className="card-modal">
+                    <div className="card-modal" onClick={() => {
+                        selectedGame = 'LEAGUE OF LEGENDS'
+                        localStorage.setItem('game', selectedGame);
+                        window.location.reload();
+                    }}>
                         <h1>LEAGUE <br/>OF LEGENDS</h1>
                         <img src={require('../images/GIFS/giphy.gif')}/>
                     </div>
@@ -133,6 +149,7 @@ const SelectGame = () => {
             {active ? <SelectGameModal/> : null}
             {platform ? <PlatformModal/> : null}
         </AnimatePresence>
+        <Tournaments game={selectedGame}/>
         </>
     );
 }

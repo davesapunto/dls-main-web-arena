@@ -53,7 +53,10 @@
     transition: scale .3s ease;
     cursor: pointer;
 }
-
+.card-modal:active {
+    scale: 1.2;
+    border: 1px solid white;
+}
 .card-modal h1 {
     position: absolute; /* Positions the text on top of the GIF */
     top: 50%; /* Centers vertically */

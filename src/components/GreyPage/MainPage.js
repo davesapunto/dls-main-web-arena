@@ -9,7 +9,6 @@ import Footer from "../Footer/Footer";
 
 import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments";
 
-
 import signin from '../Signin/SignIn.js';
 import NewsPage from "../NEWS/News.js";
 
@@ -32,8 +31,6 @@ const Page = () => {
 
                 </div>
             </div>
-            <Tournaments />
-            <OrganizeTournaments />
             </>
     );
 }
@@ -43,10 +40,10 @@ const MainPage = () => {
     const [signin , setSignin] = useState(false);
 
     const [scrolled, isScrolled] = useState(false);
-
+    
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            window.scrollY <= 0 ? isScrolled(false) : isScrolled(true);
+            window.scrollY === 0 ? isScrolled(false) : isScrolled(true);
         });
     });
 
@@ -56,6 +53,7 @@ const MainPage = () => {
                 <Header headerclass={scrolled ? 'header' : 'header-transparent'}/>
                 {signin ? null : <Page/>}
                 <NewsPage/>
+                <OrganizeTournaments />
                 <Footer />
             </div>
         </>
