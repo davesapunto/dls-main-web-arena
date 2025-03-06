@@ -36,7 +36,7 @@ const Header = (props) => {
               <Link to="org_tourna" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
               <Link to="tournaments" smooth={true} duration={500} offset={-180}><li>Tournaments</li></Link>
               <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Feedback</li></Link>
-              <li>News</li>
+              <Link to="News" smooth={true} duration={500} offset={-50}><li>News</li></Link>
               <li><a className = "sign-in" 
               onClick={() => {active ? setActive(false) : setActive(true)}}>
                 <FaUser />
