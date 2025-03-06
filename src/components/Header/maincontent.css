@@ -16,7 +16,7 @@
     font-weight: bold;
     width: 80vh;
     height: 50vh;
-    transform: translateY(20vh) translateX(119vh);
+    transform: translateY(20vh) translateX(110vh);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,6 +41,7 @@
     align-items: center;
     justify-content: center;
     border-style: none;
+    cursor: pointer;
 }
 .content-box:hover{
     background-color: #fe5426;

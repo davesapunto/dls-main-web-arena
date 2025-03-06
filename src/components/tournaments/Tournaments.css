@@ -20,14 +20,14 @@
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #ef2f2f;
+    background-color: black;
     font-family: 'Bai Jamjuree';
     cursor: pointer;
 }
 
 .heading {
     text-align: center;
-    font-size: 50px;
+    font-size: 80px;
     color: white;
     font-family: 'Bai Jamjuree';
     margin: 0px;
