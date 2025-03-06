@@ -45,10 +45,10 @@
 }
 .content-box:hover{
     background-color: #fe5426;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
 }
 
-.content-box::after{
-    background-color: #8a1e01;
-}
 
 
