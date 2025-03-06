@@ -56,7 +56,6 @@ const MainPage = () => {
                 <Header headerclass={scrolled ? 'header' : 'header-transparent'}/>
                 {signin ? null : <Page/>}
                 <NewsPage/>
-                <NewsPage/>
                 <Footer />
             </div>
         </>
