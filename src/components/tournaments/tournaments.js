@@ -69,6 +69,14 @@ const testtournament = [
         location: 'PHILLIPINES',
         game: 'VALORANT'
     },
+    {
+        image: require('../images/tourna/481687516_930928352222561_2069226538248636043_n (1).jpg'),
+        name: 'MARK TOURNAMENT',
+        data: 'Sun March 2',
+        time: '12:45pm - 1:23pm',
+        location: 'MINDANAO',
+        game: 'LEAGUE OF LEGENDS'
+    },
 ]
 
 

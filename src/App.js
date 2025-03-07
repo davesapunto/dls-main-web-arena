@@ -6,13 +6,6 @@ import UserDashboard from './components/UserDashboard/UserDashboard';
 
 function App() {
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<MainPage />} />
-    //     <Route path="/login" element={<Login />} />
-    //     <Route path="/dashboard" element={<UserDashboard />} />
-    //   </Routes>
-    // </Router>
     <>
     </>
   );
