@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import '../GreyPage/MainPage.css';
-import SelectGame from "./GameSelect";
-import Tournaments from "../tournaments/tournaments";
-import Header from "../Header/header";
-import Footer from "../Footer/Footer";
-
-import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments";
-
-import signin from '../Signin/SignIn.js';
+import './MainPage.css';
+import SelectGame from "./GameSelect.js";
+import Header from "../Header/header.js";
+import Footer from "../Footer/Footer.js";
+import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments.js";
 import NewsPage from "../NEWS/News.js";
+import Signup from "../Signin/SignIn.js";
 
 
 const images = [
@@ -21,6 +17,7 @@ const images = [
 ];
 
     
+localStorage.clear('game');
 
 const Page = () => {
     return (
@@ -51,7 +48,7 @@ const MainPage = () => {
         <>
             <div>
                 <Header headerclass={scrolled ? 'header' : 'header-transparent'}/>
-                {signin ? null : <Page/>}
+                {signin ? <Signup/> : <Page/>}
                 <NewsPage/>
                 <OrganizeTournaments />
                 <Footer />

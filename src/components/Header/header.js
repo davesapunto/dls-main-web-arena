@@ -1,10 +1,11 @@
 import React from "react";
-import '../Header/header.css';
+import './header.css';
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import Signup from "../Signin/SignIn";
 import MainContent from "./mainContent";
 import { Link } from "react-scroll";
+import { NavLink } from "react-router";
 
 const Header = (props) => {
 
@@ -14,16 +15,19 @@ const Header = (props) => {
   const SignInButton = () => {
     return(
     <div className = "SignInButton">
+      <NavLink to='/Login'>
       <a href="#" onClick={() => 
         {
           setSignin(true)
           setActive(false)
         }}>Sign In</a>
+      </NavLink>
+      <NavLink to='/SignUp'>
       <a href="#">Sign Up</a>
+      </NavLink>
     </div>
     )
   }
-
     return (
         <div className="app-container" style={{ fontFamily: "'Bai Jamjuree', sans-serif" }}>
       {/* Header */}
@@ -35,8 +39,8 @@ const Header = (props) => {
               <Link to="home" smooth={true} duration={500}><li onClick={() => setSignin(false)}>Home</li></Link>
               <Link to="org_tourna" smooth={true} duration={500} offset={-50}><li>Organize Tournament</li></Link>
               <Link to="tournaments" smooth={true} duration={500} offset={-180}><li>Tournaments</li></Link>
-              <Link to="tournaments" smooth={true} duration={500} offset={-50}><li>Feedback</li></Link>
-              <Link to="News" smooth={true} duration={500} offset={-50}><li>News</li></Link>
+              <Link to="Feedback" smooth={true} duration={500} offset={-50}><li>Feedback</li></Link>
+              <Link to="News" smooth={true} duration={500} offset={-100}><li>News</li></Link>
               <li><a className = "sign-in" 
               onClick={() => {active ? setActive(false) : setActive(true)}}>
                 <FaUser />
@@ -48,11 +52,9 @@ const Header = (props) => {
       </header>
 
       {/* Main Content */}
+      {/* di dapat sa header nakalagay main content dito sa header pero fuck it we ballin */}
+      {signin ? <Signup/> : <MainContent/>} 
       
-      {signin ? <Signup/> : <MainContent/>}
-    
-      
-
     </div>
     );
 }

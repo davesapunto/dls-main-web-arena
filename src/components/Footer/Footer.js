@@ -1,22 +1,70 @@
-import React from "react";
-import '../Footer/Footer.css'; // Import the CSS file
+import React, { useEffect, useRef } from "react";
+import './Footer.css'; // Import the CSS file
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa";
+import { Element } from "react-scroll";
+import { motion, useAnimation, useInView } from "motion/react";
 
 const Footer = () => {
+
+  const containerref = useRef(null);
+  const maincontrol = useAnimation();
+  const isinview = useInView(containerref, {once: true});
+
+  useEffect(() => {
+    if (isinview) {
+      maincontrol.start('visible');
+    }
+  }, [isinview]);
+
   return (
-    <footer className="footer">
+    <Element name="Feedback">
+      <footer className="footer">
       <div className="footer-container">
 
         {/* About Us */}
-        <div className="footer-section">
+        <motion.div 
+        ref={containerref}
+        animate={maincontrol}
+        initial='hidden'
+        variants=
+        {
+          {
+            hidden: {opacity: 0, x: -75},
+            visible: {opacity: 1, x: 0}
+          }
+        }
+        transition=
+        {
+          {
+            delay: .3, duration: .8
+          }
+        }
+        className="footer-section">
           <h3>ABOUT US</h3>
           <p>
             Dark League Studios was founded in July {new Date().getFullYear()}, and is the newest esports and gaming organizer in the industry. Our immediate goal is to be the top-of-mind grassroots events and esports organizer with the largest gaming community. Our vision is for the Philippines to be the Esports Tourism Destination in SEA by contributing to the sustainability of the industry, and making esports culture something all generations across the country can appreciate.
           </p>
-        </div>
+        </motion.div>
 
         {/* Contact Us */}
-        <div className="footer-section">
+        <motion.div 
+        ref={containerref}
+        animate={maincontrol}
+        initial='hidden'
+        variants=
+        {
+          {
+            hidden: {opacity: 0, y: 75},
+            visible: {opacity: 1, y: 0}
+          }
+        }
+        transition=
+        {
+          {
+            delay: .3, duration: .8
+          }
+        }
+        className="footer-section">
           <h3>CONTACT US</h3>
           <p>For partnerships and sponsorships, you may directly contact</p>
           <a href="mailto:events@darkleaguestudios.com">
@@ -31,10 +79,27 @@ const Footer = () => {
             <a href="https://www.youtube.com/channel/DarkLeagueStudios"target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
             <a href="https://www.linkedin.com/company/darkleaguestudios/posts/?feedView=all"target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Location */}
-        <div className="footer-section">
+        <motion.div 
+        ref={containerref}
+        animate={maincontrol}
+        initial='hidden'
+        variants=
+        {
+          {
+            hidden: {opacity: 0, x: 75},
+            visible: {opacity: 1, x: 0}
+          }
+        }
+        transition=
+        {
+          {
+            delay: .3, duration: .8
+          }
+        }
+        className="footer-section">
           <h3>LOCATION</h3>
           <a href="https://maps.app.goo.gl/UBVABWZKGMVDL95Z7" target="_blank" rel="noopener noreferrer"
             style={{ color: "white", textDecoration: "underline" }} 
@@ -51,7 +116,7 @@ const Footer = () => {
           style={{ width: "75%", maxWidth: "300px", marginTop: "10px", borderRadius: "8px" }}
         />
       </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* Copyright */}
@@ -59,6 +124,7 @@ const Footer = () => {
         &copy; {new Date().getFullYear()} Dark League Studios
       </div>
     </footer>
+    </Element>
   );
 };
 

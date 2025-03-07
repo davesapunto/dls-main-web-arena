@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { auth, googleProvider, facebookProvider } from "../firebase-config.js";
+import { auth, googleProvider, facebookProvider, DB } from "../firebase-config";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc"; // Google Icon
 import { FaFacebook } from "react-icons/fa"; // Facebook Icon
-import '../Signin/Signin.css'; // Import CSS
+import { NavLink, useNavigate } from "react-router";
+import './Signin.css'; // Import CSS
+
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
   const [C_PASSWORD, setC_PASSWORD] = useState(null);
 
@@ -15,19 +19,42 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password).then(() => {
-        alert("Account Created Successfully!");
-      });
-    } catch (error) {
-      alert(error.message);
+
+    if (formData.password === C_PASSWORD) {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const userID = userCredential.user;
+  
+        await setDoc(doc(DB, 'users', userID.uid), {
+          email: formData.email,
+          username: `${formData.firstName} ${formData.lastName}`
+        }).then(() => {
+          alert('USER CREATED');
+          navigate('/Login');
+        });
+  
+      } catch (error) {
+        alert(error.message);
+      }
+    } else {
+      alert('PASSWORD DOES NOT MATCH!');
+      setC_PASSWORD("");
+      setFormData({ firstName: "", lastName: "", email: "", password: "" });
     }
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleSignup = async () => { //FIXED NATO MAY USERNAME NAREN
     try {
-      await signInWithPopup(auth, googleProvider);
-      alert("Signed up with Google!");
+      const userGOGL = await signInWithPopup(auth, googleProvider);
+      const user = userGOGL.user;
+
+      await setDoc(doc(DB, 'users', user.uid), {
+        email: user.email,
+        username: user.displayName
+      }).then(() => {
+        alert('SIGNED UP WITH GOOGLE!');
+        navigate('/Homepage');
+      });
     } catch (error) {
       alert(error.message);
     }
@@ -43,7 +70,32 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
+    <>
+    <div className="signup">
+      <img src={require('../images/GIFS/222056.gif')} style=
+      {
+        {
+          position: 'absolute',
+          zIndex: -5,
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }/>
+      <NavLink to='/HomePage'>
+      <img src={require('../images/logo.png')} style=
+      {
+        {
+          width: 350,
+          height: 130,
+          position: 'absolute',
+          margin: 50,
+          cursor: 'pointer'
+        }
+      }/>
+      </NavLink>
+      <div className="signup-container">
       <h2>CREATE NEW ACCOUNT</h2>
       <form onSubmit={handleSignup}>
         <div className="input-group">
@@ -65,6 +117,9 @@ const Signup = () => {
         <button type="submit" className="create-account-btn">CREATE ACCOUNT</button>
       </form>
     </div>
+    </div>
+
+    </>
   );
 };
 

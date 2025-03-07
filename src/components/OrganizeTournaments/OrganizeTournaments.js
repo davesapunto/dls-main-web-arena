@@ -1,8 +1,19 @@
-import "../OrganizeTournaments/OrganizeTournaments.css"
-import React from "react";
+import "./OrganizeTournaments.css"
+import React, {useRef, useEffect} from "react";
 import { Element } from "react-scroll";
+import { motion, useInView, useAnimation } from "motion/react";
 
 const OrganizeTournaments = () => {
+
+    const containerref = useRef(null);
+    const isinview = useInView(containerref, {once: true});
+    const maincontrol = useAnimation();
+
+    useEffect(() => {
+        if (isinview) {
+            maincontrol.start('visible');
+        }
+    }, [isinview]);
 
     return(
         <>
@@ -18,7 +29,24 @@ const OrganizeTournaments = () => {
                 <div className="contain-image">
                     <h1>CREATE AND MANAGE TOURNAMENTS, HASSLE FREE!</h1>
                     <div className="img-contain"> 
-                        <div className="img-1">
+                        <motion.div 
+                        ref={containerref}
+                        animate={maincontrol}
+                        initial='hidden'
+                        variants=
+                        {
+                            {
+                                hidden: {opacity: 0, x: -100},
+                                visible: {opacity: 1, x: 0}
+                            }
+                        }
+                        transition=
+                        {
+                            {
+                                delay: .3, duration: .8
+                            }
+                        }
+                        className="img-1">
                             <img src={require('../images/tourna/481687516_930928352222561_2069226538248636043_n (1).jpg')} alt="NEWS" className="image-1" />
                             <h1>
                                 Join tournaments <br/> easily
@@ -26,8 +54,25 @@ const OrganizeTournaments = () => {
                             <p>
                                 Find and compete in tournaments with players around the Philippines.
                             </p>
-                        </div>
-                        <div className="img-2">
+                        </motion.div>
+                        <motion.div 
+                        ref={containerref}
+                        animate={maincontrol}
+                        initial='hidden'
+                        variants=
+                        {
+                            {
+                                hidden: {opacity: 0, y: 100},
+                                visible: {opacity: 1, y: 0}
+                            }
+                        }
+                        transition=
+                        {
+                            {
+                                delay: .3, duration: .8
+                            }
+                        }
+                        className="img-2">
                          <img src={require('../images/tourna/481687516_930928352222561_2069226538248636043_n (1).jpg')} alt="NEWS" className="image-1" />
                             <h1>
                                 Create your own tournament
@@ -35,8 +80,25 @@ const OrganizeTournaments = () => {
                             <p>
                                 Set up tournaments for any game with powerful, easy-to-use tools.
                             </p>
-                        </div>
-                        <div className="img-3">
+                        </motion.div>
+                        <motion.div 
+                        ref={containerref}
+                        animate={maincontrol}
+                        initial='hidden'
+                        variants=
+                        {
+                            {
+                                hidden: {opacity: 0, x: 100},
+                                visible: {opacity: 1, x: 0}
+                            }
+                        }
+                        transition=
+                        {
+                            {
+                                delay: .3, duration: .8
+                            }
+                        }
+                        className="img-3">
                             <img src={require('../images/tourna/481687516_930928352222561_2069226538248636043_n (1).jpg')} alt="NEWS" className="image-1" />
                             <h1>
                                 Organize like a pro
@@ -44,7 +106,7 @@ const OrganizeTournaments = () => {
                             <p>
                                 Manage brackets, track scores, and streamline matches effortlessly.
                             </p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,8 @@
-import React from "react";
-import '../tournaments/Tournaments.css';
+import React, { useRef, useEffect } from "react";
+import './Tournaments.css';
 import { Element } from "react-scroll";
 import { selectedGame } from "../GreyPage/GameSelect";
+import { motion, useInView, useAnimation } from "motion/react";
 
 const testtournament = [
     {
@@ -74,15 +75,23 @@ const testtournament = [
 
 
 const Tournaments = (gameName) => {
+
+    const containerRef = useRef(null);
+    const isInView = useInView(containerRef, {once: true});
+    const mainControl = useAnimation();
+
+    useEffect(() => {
+        if (isInView) {
+            mainControl.start('visible');
+        }
+    }, [isInView]);
+
     const gameSelected = gameName.game;
     const map = testtournament.map(game => game);
     const filter = map.filter(game => game.game === `${gameSelected}`);
-    console.log(filter);
-
-    
-    const card = filter.map((info, index) => {
-    
-        return <div className="card">
+  
+    const card = filter.map((info) => 
+        <div className="card">
             <img src={info.image} className="image"/>
             <div className="card-info">
                 <h1 style={{margin: 0, marginTop: 5, color:'white'}}>{info.name}</h1>
@@ -91,7 +100,7 @@ const Tournaments = (gameName) => {
                 <h2 style={{borderTop: '1px solid grey', paddingTop: 10}}>{info.game}</h2>
             </div>
         </div>
-    });
+    );
 
     const cardgame = testtournament.map((info, index) => {
     
@@ -108,8 +117,6 @@ const Tournaments = (gameName) => {
 
     const hasGame = card;
     const hasNoGame = cardgame;
-
-
 
     return (
         <Element name="tournaments">

@@ -1,5 +1,5 @@
 import React from "react";
-import '../GreyPage/GameSelect.css';
+import './GameSelect.css';
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Tournaments from "../tournaments/tournaments";
