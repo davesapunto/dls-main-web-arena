@@ -1,0 +1,70 @@
+/* Layout */
+.tournament-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 220px; /* Adjust width for logo */
+    background-color: #000;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Logo */
+  .logo-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 120px; /* Adjust size as needed */
+    height: auto;
+  }
+  
+  /* Sidebar List */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .sidebar-item:hover {
+    background-color: #222;
+  }
+  
+  /* Sidebar Icons */
+  .sidebar-icon {
+    font-size: 20px;
+    color: white;
+  }
+  
+  /* Sidebar Text */
+  .sidebar-text {
+    font-size: 16px;
+    color: white;
+  }
+  
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    background-color: #e0e0e0;
+  }
+  
