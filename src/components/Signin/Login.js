@@ -26,12 +26,14 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       alert("Login Successful!");
       navigate("/dashboard"); 
     } catch (error) {
       alert(error.message);
+      setFormData({...formData, email: '', password: ''});
     }
   };
 

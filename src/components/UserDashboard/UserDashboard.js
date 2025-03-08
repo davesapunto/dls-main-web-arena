@@ -74,8 +74,6 @@ const UserDashboard = () => {
         }
       }>
         <SelectGame />
-        <OrganizeTournaments />
-        <NewsPage />
         <Footer />
       </main>
     </div>
