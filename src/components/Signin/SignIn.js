@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth, googleProvider, facebookProvider, DB } from "../firebase-config";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { FcGoogle } from "react-icons/fc"; // Google Icon
-import { FaFacebook } from "react-icons/fa"; // Facebook Icon
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router";
-import './Signin.css'; // Import CSS
-
+import './Signin.css';
 
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
   const [C_PASSWORD, setC_PASSWORD] = useState(null);
+
+  // Redirect logged-in users to the dashboard
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/dashboard");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,12 +28,11 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     if (formData.password === C_PASSWORD) {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
         const userID = userCredential.user;
-  
+
         await setDoc(doc(DB, 'users', userID.uid), {
           email: formData.email,
           username: `${formData.firstName} ${formData.lastName}`
@@ -32,7 +40,7 @@ const Signup = () => {
           alert('USER CREATED');
           navigate('/Login');
         });
-  
+
       } catch (error) {
         alert(error.message);
       }
@@ -43,7 +51,7 @@ const Signup = () => {
     }
   };
 
-  const handleGoogleSignup = async () => { //FIXED NATO MAY USERNAME NAREN
+  const handleGoogleSignup = async () => {
     try {
       const userGOGL = await signInWithPopup(auth, googleProvider);
       const user = userGOGL.user;
@@ -53,7 +61,7 @@ const Signup = () => {
         username: user.displayName
       }).then(() => {
         alert('SIGNED UP WITH GOOGLE!');
-        navigate('/Homepage');
+        navigate('/dashboard');
       });
     } catch (error) {
       alert(error.message);
@@ -71,54 +79,46 @@ const Signup = () => {
 
   return (
     <>
-    <div className="signup">
-      <img src={require('../images/GIFS/222056.gif')} style=
-      {
-        {
+      <div className="signup">
+        <img src={require('../images/GIFS/222056.gif')} style={{
           position: 'absolute',
           zIndex: -5,
           width: '100%',
           height: '100%',
           alignItems: 'center',
           justifyContent: 'center'
-        }
-      }/>
-      <NavLink to='/HomePage'>
-      <img src={require('../images/logo.png')} style=
-      {
-        {
-          width: 350,
-          height: 130,
-          position: 'absolute',
-          margin: 50,
-          cursor: 'pointer'
-        }
-      }/>
-      </NavLink>
-      <div className="signup-container">
-      <h2>CREATE NEW ACCOUNT</h2>
-      <form onSubmit={handleSignup}>
-        <div className="input-group">
-          <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
-          <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
+        }} />
+        <NavLink to='/HomePage'>
+          <img src={require('../images/logo.png')} style={{
+            width: 350,
+            height: 130,
+            position: 'absolute',
+            margin: 50,
+            cursor: 'pointer'
+          }} />
+        </NavLink>
+        <div className="signup-container">
+          <h2>CREATE NEW ACCOUNT</h2>
+          <form onSubmit={handleSignup}>
+            <div className="input-group">
+              <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
+              <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required />
+            </div>
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+            <input type="password" placeholder="Confirm Password" value={C_PASSWORD} onChange={(e) => setC_PASSWORD(e.target.value)} required />
+            <div className="social-buttons">
+              <button type="button" className="facebook-btn" onClick={handleFacebookSignup}>
+                <FaFacebook size={24} color="white" />
+              </button>
+              <button type="button" className="google-btn" onClick={handleGoogleSignup}>
+                <FcGoogle size={24} />
+              </button>
+            </div>
+            <button type="submit" className="create-account-btn">CREATE ACCOUNT</button>
+          </form>
         </div>
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Confirm Password" value={C_PASSWORD} onChange={(e) => setC_PASSWORD(e.target.value)} required />
-        <div className="social-buttons">
-          <button type="button" className="facebook-btn" onClick={handleFacebookSignup}>
-            <FaFacebook size={24} color="white" />
-          </button>
-          <button type="button" className="google-btn" onClick={handleGoogleSignup}>
-            <FcGoogle size={24} />
-          </button>
-        </div>
-
-        <button type="submit" className="create-account-btn">CREATE ACCOUNT</button>
-      </form>
-    </div>
-    </div>
-
+      </div>
     </>
   );
 };

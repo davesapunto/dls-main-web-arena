@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { FaHome, FaTrophy, FaCommentDots, FaNewspaper, FaSignOutAlt } from "react-icons/fa"; 
-import "./UserDashboard.css"; 
+import { FaHome, FaTrophy, FaCommentDots, FaNewspaper, FaSignOutAlt } from "react-icons/fa";
+import "./UserDashboard.css";
 import Logo from "../../assets/images/logos/LOGO_IGNITE_ARENA.png";
-import Footer from "../Footer/Footer";
-import Tournaments from "../tournaments/tournaments";
+import Footer from "../Footer/Footer.js";
+import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments.js";
+import NewsPage from "../NEWS/News.js";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import SelectGame from "../GreyPage/GameSelect"; // ✅ Corrected import path
 
 const SidebarItem = ({ Icon, label }) => (
   <li className="sidebar-item">
@@ -47,9 +50,8 @@ const UserDashboard = () => {
   }
 
   return (
-    <>
-      <div className="dashboard-container">
-      {/* Sidebar */}
+    <div className="tournament-container">
+      {/* Sidebar - Stays Fixed on Left */}
       <aside className="sidebar">
         <div className="logo-container">
           <img src={Logo} alt="Ignite Arena Logo" className="logo" />
@@ -63,11 +65,18 @@ const UserDashboard = () => {
 
         {/* Logout Button */}
         <button onClick={handleLogout} className="logout-btn">
-          <FaSignOutAlt className="logout-icon" /> Logout
+          <FaSignOutAlt className="sidebar-icon" /> Logout
         </button>
       </aside>
+
+      {/* Main Content - Starts on the Right */}
+      <main className="main-content">
+        <SelectGame />
+        <OrganizeTournaments />
+        <NewsPage />
+        <Footer />
+      </main>
     </div>
-    </>
   );
 };
 
