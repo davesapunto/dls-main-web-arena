@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../firebase-config";
 import { signInWithEmailAndPassword, signInWithPopup, onAuthStateChanged } from "firebase/auth";
-import { FcGoogle } from "react-icons/fc"; // Google Icon
-import { NavLink } from "react-router-dom"; // ✅ Correct import
-import "./Signin.css"; // Import CSS
+import { FcGoogle } from "react-icons/fc"; 
+import { NavLink } from "react-router-dom"; 
+import "./Signin.css"; 
 
 const Login = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigation
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // Redirect logged-in users to dashboard
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         navigate("/dashboard");
       }
     });
-    return () => unsubscribe(); // Cleanup listener
+    return () => unsubscribe();
   }, [navigate]);
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       alert("Login Successful!");
-      navigate("/dashboard"); // ✅ Redirect to dashboard after login
+      navigate("/dashboard"); 
     } catch (error) {
       alert(error.message);
     }
@@ -39,7 +39,7 @@ const Login = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       alert("Signed in with Google!");
-      navigate("/dashboard"); // ✅ Redirect after Google login
+      navigate("/dashboard");
     } catch (error) {
       alert(error.message);
     }

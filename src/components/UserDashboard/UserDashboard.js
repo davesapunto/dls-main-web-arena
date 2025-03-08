@@ -23,35 +23,34 @@ const UserDashboard = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if the user is logged in
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
-        navigate("/login"); // Redirect if not logged in
+        navigate("/login");
       } else {
-        setUser(currentUser); // Set the logged-in user
+        setUser(currentUser);
       }
     });
 
-    return () => unsubscribe(); // Cleanup listener on unmount
+    return () => unsubscribe();
   }, [navigate]);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login"); // Redirect after logout
+      navigate("/login"); 
     } catch (error) {
-      console.error("❌ Logout error:", error.message);
+      console.error("Logout error:", error.message);
       alert("Failed to log out. Try again.");
     }
   };
 
   if (!user) {
-    return null; // Prevents rendering until auth state is determined
+    return null;
   }
 
   return (
     <div className="tournament-container">
-      {/* Sidebar - Stays Fixed on Left */}
       <aside className="sidebar">
         <div className="logo-container">
           <img src={Logo} alt="Ignite Arena Logo" className="logo" />
@@ -63,14 +62,17 @@ const UserDashboard = () => {
           <SidebarItem Icon={FaNewspaper} label="News" />
         </ul>
 
-        {/* Logout Button */}
         <button onClick={handleLogout} className="logout-btn">
           <FaSignOutAlt className="sidebar-icon" /> Logout
         </button>
       </aside>
 
-      {/* Main Content - Starts on the Right */}
-      <main className="main-content">
+      <main className="main-content" style=
+      {
+        {
+          padding: 0
+        }
+      }>
         <SelectGame />
         <OrganizeTournaments />
         <NewsPage />

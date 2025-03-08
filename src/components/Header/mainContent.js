@@ -13,7 +13,12 @@ const MainContent = () => {
             }
         }>
             <Element name="home">
-            <div className="main-content">
+            <div className="main-content" style=
+            {
+                {
+                    margin: 0
+                }
+            }>
                 <div className = "content-text">
                     CREATE, ORGANIZE, AND JOIN <br /> TOURNAMENTS
                     <p>Join us and ignite the gamer within you!</p>
