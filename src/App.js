@@ -4,11 +4,3 @@ import MainPage from './components/GreyPage/MainPage';
 import Login from './components/Signin/Login';  
 import UserDashboard from './components/UserDashboard/UserDashboard';  
 
-function App() {
-  return (
-    <>
-    </>
-  );
-}
-
-export default App;
