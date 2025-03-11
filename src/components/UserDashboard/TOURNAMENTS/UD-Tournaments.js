@@ -63,7 +63,6 @@ const UDTournaments = () => {
                 <div className="card-info">
                     <h1 style={{margin: 0, marginTop: 5, color:'white'}}>{info.name}</h1>
                     <p style={{fontSize: 15, margin: 0}}>{info.time}, {info.data}</p>
-                    <h2 style={{borderTop: '1px solid grey', paddingTop: 10}}>{info.location}</h2>
                     <h2 style={{borderTop: '1px solid grey', paddingTop: 10}}>{info.game}</h2>
                 </div>
             </div>
@@ -77,7 +76,6 @@ const UDTournaments = () => {
                 <div className="card-info">
                     <h1 style={{margin: 0, marginTop: 5, color:'white'}}>{info.name}</h1>
                     <p style={{fontSize: 15, margin: 0}}>{info.time}, {info.data}</p>
-                    <h2 style={{borderTop: '1px solid grey', paddingTop: 10}}>{info.location}</h2>
                     <h2 style={{borderTop: '1px solid grey', paddingTop: 10}}>{info.game}</h2>
                 </div>
             </div>
@@ -99,7 +97,7 @@ const UDTournaments = () => {
                     <img src={require('../../images/GIFS/222056.gif')} style=
                     {
                         {
-                            width: '50%',
+                            width: '40%',
                             height: '50%',
                             objectFit: 'cover',
                             border: '1px solid white',

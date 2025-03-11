@@ -38,7 +38,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleSignup = async () => { // DI NAG SASAVE YUNG INFO PAG NIRESTART YUNG SITE 
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
