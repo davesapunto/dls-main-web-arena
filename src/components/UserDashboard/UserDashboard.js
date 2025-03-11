@@ -5,7 +5,7 @@ import { FaHome, FaTrophy, FaNewspaper, FaSignOutAlt } from "react-icons/fa";
 import "./UserDashboard.css";
 import Footer from "../Footer/Footer.js";
 import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments.js";
-import NewsPage from "../NEWS/News.js";
+import NewsPageD from "../NEWS/News-D.js";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import SelectGame from "../GreyPage/GameSelect"; 
 import { auth, DB } from "../firebase-config";
@@ -43,7 +43,7 @@ const UserDashboard = () => {
       const docref = doc(DB, 'users', currentUser.uid);
       const data = await getDoc(docref);
       if (data.exists()) {
-        setUsername(data.data().username);
+        setUsername(data.data());
       } else {
         console.log('NO USER EXISTS');
       }
@@ -90,13 +90,19 @@ const UserDashboard = () => {
           </a>
           
         </ul>
-        <h1>
-        {username === 'N/A' ? 'Loading...' : username}
+        <div className="user-container">
+        </div>
+        <div className="info-container">
+
+        <h1 style={{padding: 10, backgroundColor: 'black'}}>
+        {!username.username ? 'Loading...' : username.username}
+        <p style={{margin: 0, fontSize: 12}}>DARK COINS: <span style={{color: 'yellow'}}>{username.darkcoins}</span></p>
         </h1>
-        
-        <button onClick={handleLogout} className="logout-btn">
+        <button onClick={handleLogout} className="logout-btn" style={{marginBottom: 30, textAlign: 'center', width: '100%'}}>
           <FaSignOutAlt className="sidebar-icon" /> Logout
         </button>
+
+        </div>
       </aside>
 
       <main className="main-content" style=
@@ -106,9 +112,8 @@ const UserDashboard = () => {
         }
       }>
         {pages.Tournaments ? <SelectGame/> : 
-        pages.News ? <NewsPage/> : 
+        pages.News ? <NewsPageD/> : 
         pages.Organize ? <OrganizeTournaments/> : null}
-        <Footer />
       </main>
     </div>
   );

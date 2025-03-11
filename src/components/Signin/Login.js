@@ -42,10 +42,12 @@ const Login = () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
+      console.log(user);
 
       await setDoc(doc(DB, 'users', user.uid), {
-        email: formData.email,
-        username: user.displayName
+        email: user.email,
+        username: user.displayName,
+        darkcoins: 0
       }).then(() => {
         alert('USER LOGGED IN');
         navigate('/dashboard');

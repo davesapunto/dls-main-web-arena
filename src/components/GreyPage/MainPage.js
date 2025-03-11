@@ -37,7 +37,6 @@ const MainPage = () => {
     const [signin, setSignin] = useState(false);
     const [scrolled, isScrolled] = useState(false);
 
-    // Redirect logged-in users to the dashboard
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
