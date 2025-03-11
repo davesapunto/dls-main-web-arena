@@ -5,11 +5,11 @@ import { FaHome, FaTrophy, FaNewspaper, FaSignOutAlt } from "react-icons/fa";
 import "./UserDashboard.css";
 import Footer from "../Footer/Footer.js";
 import OrganizeTournaments from "../OrganizeTournaments/OrganizeTournaments.js";
-import NewsPageD from "../NEWS/News-D.js";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import SelectGame from "../GreyPage/GameSelect"; 
+import UDTournament from "./TOURNAMENTS/UD-Tournaments.js";
 import { auth, DB } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
+import NewsDash from "./NEWS/newsD.js";
 
 const SidebarItem = ({ Icon, label }) => (
   <li className="sidebar-item">
@@ -72,11 +72,11 @@ const UserDashboard = () => {
         <div className="logo-container">
           <img src={require('../../assets/images/logos/LOGO_IGNITE_ARENA.png')} alt="Ignite Arena Logo" className="logo" />
         </div>
-        <ul>
+        <ul >
           <a onClick={() => {
             setPage({...pages, Tournaments: true, News: false, Organize: false});
           }}>
-            <SidebarItem Icon={FaHome} label="Home"/>
+            <SidebarItem Icon={FaHome} label="Home" />
           </a>
           <a onClick={() => {
             setPage({...pages, Tournaments: false, News: false, Organize: true});
@@ -111,9 +111,10 @@ const UserDashboard = () => {
           padding: 0
         }
       }>
-        {pages.Tournaments ? <SelectGame/> : 
-        pages.News ? <NewsPageD/> : 
+        {pages.Tournaments ? <UDTournament/> : 
+        pages.News ? <NewsDash/> : 
         pages.Organize ? <OrganizeTournaments/> : null}
+        <Footer/>
       </main>
     </div>
   );

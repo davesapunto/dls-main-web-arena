@@ -38,7 +38,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleSignup = async () => { // DI NAG SASAVE YUNG INFO PAG NIRESTART YUNG SITE 
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
@@ -64,7 +64,7 @@ const Login = () => {
     <>
       <div className="signup">
         <img
-          src={require("../images/GIFS/222056.gif")}
+          src={require("../images/unnamed.jpg")}
           style={{
             position: "absolute",
             zIndex: -5,
