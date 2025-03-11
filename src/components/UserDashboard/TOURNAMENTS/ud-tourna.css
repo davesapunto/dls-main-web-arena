@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.Tournaments {
+    width: 100%;
+    padding: 15px 0px 0px 0px;
+    box-sizing: border-box;
+    background-color:#1d1c1c;
+}
+
+.Tournament-Container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
+    justify-content: center;
+    padding: 5%;
+}
+
+.games-container {
+    width: 100%;
+    height: 15vh;
+    margin: 50px 0 0 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+/* GAMES CLASS */
+
+.VALORANT {
+    width: 15%;
+    height: 10vh;
+    border: 2px solid rgb(238, 238, 1);
+    border-radius: 20px;
+    scale: 1;
+    transition: scale .3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.VALORANT:hover {
+    scale: 1.1;
+    transition: scale .3s ease;
+    cursor: pointer;
+}
+
+.LOL {
+    width: 15%;
+    height: 10vh;
+    border: 2px solid rgb(238, 238, 1);
+    border-radius: 20px;
+    scale: 1;
+    transition: scale .3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.LOL:hover {
+    scale: 1.1;
+    transition: scale .3s ease;
+    cursor: pointer;
+}
+
+.ML {
+    width: 15%;
+    height: 10vh;
+    border: 2px solid rgb(238, 238, 1);
+    border-radius: 20px;
+    scale: 1;
+    transition: scale .3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.ML:hover {
+    scale: 1.1;
+    transition: scale .3s ease;
+    cursor: pointer;
+}
+
+.games-choices {
+    width: 15%;
+    height: 10vh;
+    border: 2px solid white;
+    border-radius: 20px;
+    scale: 1;
+    transition: scale .3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.games-choices:hover {
+    scale: 1.1;
+    transition: scale .3s ease;
+    cursor: pointer;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: black;
+    font-family: 'Bai Jamjuree';
+    cursor: pointer;
+}
+
+.heading {
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    font-family: 'Bai Jamjuree';
+    margin: 0px;
+    margin-top: 50px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image {
+    width: 100%;
+    height: 350px; 
+    object-fit: cover; 
+}
+
+.card-info {
+    padding: 15px; 
+    text-align: center;
+}
+
+.card-info h1 {
+    font-size: 1.5rem; 
+    margin: 0;
+    margin-top: 5px;
+}
+
+.card-info p {
+    font-size: 1rem;
+    margin: 0;
+    color: #ffffff;
+}
+
+.card-info h2 {
+    font-size: 1.2rem; 
+    border-top: 1px solid #ccc; 
+    padding-top: 10px;
+    margin: 10px 0 0; 
+    color: #ffffff; 
+}
+
+

@@ -59,7 +59,8 @@ const Signup = () => {
 
       await setDoc(doc(DB, 'users', user.uid), {
         email: user.email,
-        username: user.displayName
+        username: user.displayName,
+        darkcoins: 0
       }).then(() => {
         alert('SIGNED UP WITH GOOGLE!');
         navigate('/dashboard');
@@ -81,7 +82,7 @@ const Signup = () => {
   return (
     <>
       <div className="signup">
-        <img src={require('../images/GIFS/222056.gif')} style={{
+        <img src={require("../images/unnamed.jpg")} style={{
           position: 'absolute',
           zIndex: -5,
           width: '100%',

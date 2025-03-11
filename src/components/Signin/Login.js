@@ -64,7 +64,7 @@ const Login = () => {
     <>
       <div className="signup">
         <img
-          src={require("../images/GIFS/222056.gif")}
+          src={require("../images/unnamed.jpg")}
           style={{
             position: "absolute",
             zIndex: -5,
