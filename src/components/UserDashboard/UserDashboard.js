@@ -72,11 +72,11 @@ const UserDashboard = () => {
         <div className="logo-container">
           <img src={require('../../assets/images/logos/LOGO_IGNITE_ARENA.png')} alt="Ignite Arena Logo" className="logo" />
         </div>
-        <ul>
+        <ul >
           <a onClick={() => {
             setPage({...pages, Tournaments: true, News: false, Organize: false});
           }}>
-            <SidebarItem Icon={FaHome} label="Home"/>
+            <SidebarItem Icon={FaHome} label="Home" />
           </a>
           <a onClick={() => {
             setPage({...pages, Tournaments: false, News: false, Organize: true});

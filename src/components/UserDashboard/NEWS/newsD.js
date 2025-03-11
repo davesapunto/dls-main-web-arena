@@ -16,7 +16,7 @@ const NewsDASH = () => {
             </div>
             <div className="text-container">
                 <div className="text">
-                    <h1>Why has NAVI entered Mobile Legends: Bang Bang esports?</h1>
+                    <h1 style={{fontSize: 60}}>Why has NAVI entered Mobile Legends: Bang Bang esports?</h1>
                     <p>March 4, 2025 | Tom Daniels</p>
                     <p style={{textAlign: 'left'}}>Over the last couple of years, Mobile Legends: Bang Bang (MLBB) esports has become one of the hottest properties within the entire industry.<br></br><br></br>The MLBB scene has always been a mainstay in Southeast Asia, with its competitions regularly featuring in top esports viewership lists. However, global esports organisations have now started to take notice of Mobile Legends: Bang Bang’s passionate — and growing — audience. 
 NAVI, one of the most recognisable teams within Counter-Strike 2, has become the latest name to stake its claim in MLBB, entering the ecosystem’s most popular league, MPL Indonesia.
