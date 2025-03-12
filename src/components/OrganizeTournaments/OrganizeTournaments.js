@@ -2,6 +2,7 @@ import "./OrganizeTournaments.css"
 import React, {useRef, useEffect} from "react";
 import { Element } from "react-scroll";
 import { motion, useInView, useAnimation } from "motion/react";
+import { navigate, NavLink } from "react-router"
 
 const OrganizeTournaments = () => {
 
@@ -21,9 +22,12 @@ const OrganizeTournaments = () => {
             <div className="contain">
                 <div className = "org-text">
                         JOIN, CREATE, AND ORGANIZE your tournaments<br /> with ease. Get started TODAY!
-                        <button href="" className = "org-contain">
+                        <NavLink 
+                        to='../CreateTournament'
+                        className = "org-contain"
+                        >
                             CREATE MY TOURNAMENT
-                        </button>
+                        </NavLink>
                 </div>
                 
                 <div className="contain-image">

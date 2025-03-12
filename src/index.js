@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import MainPage from './components/GreyPage/MainPage';
 import Login from './components/Signin/Login';
 import UserDashboard from './components/UserDashboard/UserDashboard';
+import CreateTournament from './components/CreateTournament/CreateTournament';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ root.render(
       <Route path='HomePage' element={<MainPage/>}/>
       <Route path='LogIn' element={<Login/>}/>
       <Route path= 'Dashboard' element={<UserDashboard/>}/>
+      <Route path='CreateTournament' element={<CreateTournament/>}/>
     </Routes>
   </BrowserRouter>
 );
