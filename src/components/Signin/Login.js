@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider, DB } from "../firebase-config";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc"; 
 import { NavLink } from "react-router-dom"; 
@@ -42,16 +42,23 @@ const Login = () => {
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
       const user = userCredential.user;
-      console.log(user);
 
-      await setDoc(doc(DB, 'users', user.uid), {
-        email: user.email,
-        username: user.displayName,
-        darkcoins: 0
-      }).then(() => {
-        alert('USER LOGGED IN');
-        navigate('/dashboard');
-      });
+      const account = doc(DB, 'users', user.uid);
+
+      const getACC = await getDoc(account);
+
+      if (getACC.exists()) {
+        return;
+      } else {
+        await setDoc(doc(DB, 'users', user.uid), {
+          email: user.email,
+          username: user.displayName,
+          darkcoins: 0
+        }).then(() => {
+          alert('USER LOGGED IN');
+          navigate('/dashboard');
+        });
+      }
 
       alert("Signed in with Google!");
       navigate("/dashboard");

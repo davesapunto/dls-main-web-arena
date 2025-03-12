@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleProvider, facebookProvider, DB } from "../firebase-config";
 import { createUserWithEmailAndPassword, signInWithPopup, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router";
@@ -11,6 +11,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
   const [C_PASSWORD, setC_PASSWORD] = useState(null);
+  const [accountUser, setACCUSER] = useState('');
 
   // Redirect logged-in users to the dashboard
   useEffect(() => {
@@ -57,14 +58,23 @@ const Signup = () => {
       const userGOGL = await signInWithPopup(auth, googleProvider);
       const user = userGOGL.user;
 
-      await setDoc(doc(DB, 'users', user.uid), {
-        email: user.email,
-        username: user.displayName,
-        darkcoins: 0
-      }).then(() => {
-        alert('SIGNED UP WITH GOOGLE!');
-        navigate('/dashboard');
-      });
+      const accounts = doc(DB, 'users', user.uid);
+
+      const accs = await getDoc(accounts);
+
+      if (accs.exists()) {
+        return;
+      } else {
+        await setDoc(doc(DB, 'users', user.uid), {
+          email: user.email,
+          username: user.displayName,
+          darkcoins: 0
+        }).then(() => {
+          alert('SIGNED UP WITH GOOGLE!');
+          navigate('/dashboard');
+        });
+      }
+
     } catch (error) {
       alert(error.message);
     }

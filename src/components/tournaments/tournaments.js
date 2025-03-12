@@ -3,6 +3,8 @@ import './Tournaments.css';
 import { Element } from "react-scroll";
 import { selectedGame } from "../GreyPage/GameSelect";
 import { motion, useInView, useAnimation } from "motion/react";
+import { doc, getDoc, collection } from "firebase/firestore";
+import { DB } from "../firebase-config";
 
 const testtournament = [
     {
@@ -84,20 +86,11 @@ const testtournament = [
 
 const Tournaments = (gameName) => {
 
-    const containerRef = useRef(null);
-    const isInView = useInView(containerRef, {once: true});
-    const mainControl = useAnimation();
-
-    useEffect(() => {
-        if (isInView) {
-            mainControl.start('visible');
-        }
-    }, [isInView]);
-
     const gameSelected = gameName.game;
     const map = testtournament.map(game => game);
     const filter = map.filter(game => game.game === `${gameSelected}`);
   
+
     const card = filter.map((info) => 
         <div className="card">
             <img src={info.image} className="image"/>

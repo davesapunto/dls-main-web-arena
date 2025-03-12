@@ -10,6 +10,7 @@ import UDTournament from "./TOURNAMENTS/UD-Tournaments.js";
 import { auth, DB } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import NewsDash from "./NEWS/newsD.js";
+import TournamentCreation from "../CreateTournament/TournamentCreate.js";
 
 const SidebarItem = ({ Icon, label }) => (
   <li className="sidebar-item">
@@ -113,7 +114,7 @@ const UserDashboard = () => {
       }>
         {pages.Tournaments ? <UDTournament/> : 
         pages.News ? <NewsDash/> : 
-        pages.Organize ? <OrganizeTournaments/> : null}
+        pages.Organize ? <TournamentCreation/>: null}
         <Footer/>
       </main>
     </div>

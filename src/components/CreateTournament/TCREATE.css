@@ -1,0 +1,189 @@
+.tournament {
+    width: 100%;
+    height: 100vh;
+    background-color: #30343c;
+    position: absolute;
+    padding: 50px;
+    z-index: 999
+}
+
+.selection-type {
+    width: 80%;
+    height: 10vh;
+    margin: 0px;
+    display: flex;
+    margin-top: 50px;
+    color: white;
+    border-bottom: 1px solid white;
+    margin-bottom: 50px;
+}
+
+.selection-type h1 {
+    margin-right: 50px;
+}
+
+.selection-type h1:hover {
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+
+.setup {
+    padding: 100px;
+    width: 50%;
+    height: 20vh;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.setup-selection {
+  width: 80%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.card-selection {
+  width: 25%;
+  height: 15vh;
+  background-color: white;
+  border-radius: 20px;
+  scale: 1;
+  transition: scale .3s ease;
+  background-image: url('../images/c3.png');
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 30px;
+}
+
+.card-selection:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.single-elims {
+  width: 25%;
+  height: 15vh;
+  background-color: white;
+  border-radius: 20px;
+  scale: 1;
+  transition: scale .3s ease;
+  background-image: url('../images/c3.png');
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 30px;
+  border: 1px solid white;
+}
+
+.single-elims:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.game-select-option {
+  width: 132%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #1d1c1c;
+  color: white;
+  font-weight: large;
+  margin-bottom: 10px;
+}
+
+.double-elims {
+  width: 25%;
+  height: 15vh;
+  background-color: white;
+  border-radius: 20px;
+  scale: 1;
+  transition: scale .3s ease;
+  background-image: url('../images/c3.png');
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 30px;
+  border: 1px solid white;
+}
+
+.double-elims:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+
+/* radio button */
+
+.radio-input input {
+    display: none;
+  }
+  
+  .radio-input {
+    --container_width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #212121;
+    color: #eee;
+    width: 132%;
+    overflow: hidden;
+    border: 2px solid #fff;
+  }
+  
+  .radio-input label {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-weight: 600;
+    letter-spacing: -1px;
+    font-size: 14px;
+  }
+  
+  .selection {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: 0.15s ease;
+  }
+  
+  .radio-input label:nth-child(1):has(input:checked) {
+    color: #fff;
+  }
+  .radio-input label:nth-child(2):has(input:checked) {
+    color: #fff;
+  }
+  .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+    background-color: #30343c;
+    display: inline-block;
+  }
+  .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+    background-color: #30343c;
+    display: inline-block;
+  }
+  .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+    transform: translateX(-0%);
+  }
+  
+  .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+    transform: translateX(100%);
+  }
+  
