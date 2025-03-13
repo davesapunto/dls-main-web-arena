@@ -11,6 +11,7 @@ import { auth, DB } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import NewsDash from "./NEWS/newsD.js";
 import TournamentCreation from "../CreateTournament/TournamentCreate.js";
+import ProfileView from "./PROFILE/UserProfile.js";
 
 const SidebarItem = ({ Icon, label }) => (
   <li className="sidebar-item">
@@ -22,7 +23,7 @@ const SidebarItem = ({ Icon, label }) => (
 const UserDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [pages, setPage] = useState({Tournaments: true, News: false, Organize: false});
+  const [pages, setPage] = useState({Tournaments: true, News: false, Organize: false, Profile: false});
   const [username, setUsername] = useState('N/A');
 
   const currentUser = auth.currentUser;
@@ -75,17 +76,17 @@ const UserDashboard = () => {
         </div>
         <ul >
           <a onClick={() => {
-            setPage({...pages, Tournaments: true, News: false, Organize: false});
+            setPage({...pages, Tournaments: true, News: false, Organize: false, Profile: false});
           }}>
             <SidebarItem Icon={FaHome} label="Home" />
           </a>
           <a onClick={() => {
-            setPage({...pages, Tournaments: false, News: false, Organize: true});
+            setPage({...pages, Tournaments: false, News: false, Organize: true, Profile: false});
           }}>
             <SidebarItem Icon={FaTrophy} label="Organize" />
           </a>
           <a onClick={() => {
-            setPage({...pages, Tournaments: false, News: true, Organize: false});
+            setPage({...pages, Tournaments: false, News: true, Organize: false,  Profile: false});
           }}>
             <SidebarItem Icon={FaNewspaper} label="News" />
           </a>
@@ -94,11 +95,14 @@ const UserDashboard = () => {
         <div className="user-container">
         </div>
         <div className="info-container">
-
-        <h1 style={{padding: 10, backgroundColor: 'black'}}>
+        <div className="user-info" onClick={() => {
+          setPage({...pages, Tournaments: false, News: false, Organize: false,  Profile: true});
+        }}>
+        <h1 style={{padding: 10, backgroundColor: '#28303f'}}>
         {!username.username ? 'Loading...' : username.username}
         <p style={{margin: 0, fontSize: 12}}>DARK COINS: <span style={{color: 'yellow'}}>{username.darkcoins}</span></p>
         </h1>
+        </div>
         <button onClick={handleLogout} className="logout-btn" style={{marginBottom: 30, textAlign: 'center', width: '100%'}}>
           <FaSignOutAlt className="sidebar-icon" /> Logout
         </button>
@@ -114,7 +118,8 @@ const UserDashboard = () => {
       }>
         {pages.Tournaments ? <UDTournament/> : 
         pages.News ? <NewsDash/> : 
-        pages.Organize ? <TournamentCreation/>: null}
+        pages.Organize ? <TournamentCreation/>: 
+        pages.Profile ? <ProfileView/> : null}
         <Footer/>
       </main>
     </div>

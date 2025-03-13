@@ -1,0 +1,21 @@
+.profileview {
+    width: 100%;
+    height: 150vh;
+    background-color: #1d1c1c;
+}
+
+.header-image {
+    width: 100%;
+    height: 30vh;
+    background-color: #e0dcdc;
+}
+
+.profile-picture {
+    width: 15%;
+    height: 25vh;
+    border-radius: 500%;
+    background-color: white;
+    position: initial;
+    top: 20vh;
+    left: 15%; 
+}

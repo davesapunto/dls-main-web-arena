@@ -20,7 +20,7 @@ const UDTournaments = () => {
             setTournaments(dataItems);
             console.log(dataItems);
         } catch (error) {
-            console.error('Error fetching tournaments:', error.message);
+            console.error(error.message);
         }
     };
 
@@ -64,7 +64,7 @@ const UDTournaments = () => {
                 </div>
 
                 <div className="Tournament-Container">
-                    {tournaments.length === 0 ? <h1 style={{color: 'white', textAlign: 'center'}}>LOADING. . .</h1> : FORMAT.map(renderCard)}
+                    {tournaments.length === 0 ? <h1 style={{color: 'white', textAlign: 'center', cursor:'wait'}}>LOADING. . .</h1> : FORMAT.map(renderCard)}
                 </div>
             </div>
         </Element>
