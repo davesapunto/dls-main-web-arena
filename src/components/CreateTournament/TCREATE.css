@@ -153,7 +153,91 @@
     letter-spacing: -1px;
     font-size: 14px;
   }
-  
+
+  .setup-page{
+    display: grid;
+    grid-template-columns: auto auto;
+    color: white;
+    width: 80%;
+  }
+  .setup-page input{
+    background-color: #212121;
+    width: 300px;
+    height: 30px;
+  }
+  .setup-page2{
+    color:white;
+    width: 80%;
+  }
+  .setup-page2-1{
+    width: 40%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #212121;
+    border-radius: 10px;
+  }
+  .setup-page2-1 button{
+    width: 49%;
+    height: 99%;
+    border: black;
+    background-color: transparent;
+    color: white;
+    font-family: 'Bai Jamjuree';
+    font-size: large;
+    border-radius: 10px;
+  }
+
+  .page-button1{
+    width: 80%;
+    height: 100px;
+    display: grid;
+    grid-column: 2;
+  }
+  .page-button2{
+    width: 80%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column: 2;
+    margin-top: 40px
+  }
+  .next-button{
+    font-family: 'Bai Jamjuree';
+    background-color: red;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    border: black;
+    justify-self: end;
+    color: white;
+    font-size: large;
+  }
+  .next-button:hover{
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .previous-button{
+    font-family: 'Bai Jamjuree';
+    background-color: black;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    border: rgb(31, 29, 29);
+    justify-self: start;
+    color: white;
+    font-size: large;
+  }
+  .previous-button:hover{
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+  }
+
   .selection {
     display: none;
     position: absolute;
@@ -163,6 +247,18 @@
     left: 0;
     top: 0;
     transition: 0.15s ease;
+  }
+
+  .page-2{
+    gap: 50px;
+  }
+  .page-2 input{
+    width: 80%;
+    height: 40px;
+    font-family: 'Bai jamjuree';
+    color: white;
+    font-weight: bold;
+
   }
   
   .radio-input label:nth-child(1):has(input:checked) {

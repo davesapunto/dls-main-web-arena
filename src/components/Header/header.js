@@ -2,7 +2,7 @@ import React from "react";
 import './header.css';
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
-import Signup from "../Signin/SignIn";
+import Signup from "../Signin/SignIn.js";
 import MainContent from "./mainContent";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router";
