@@ -6,19 +6,22 @@ import { auth } from "../firebase-config";
 
 
 const TournamentCreation = () => {
-    const user = auth.currentUser;
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [mode, setMode] = useState('');
     const [game, setGame] = useState('');
-
     const saveData = async () => {
+        //backend
+        const user = doc(DB, 'users', auth.currentUser.uid);
+        const userAUTH = await getDoc(user);
+        console.log(userAUTH.data());
+
         const data = {
             name: name,
             type: type,
             mode: mode,
             game: game,
-            owner: user.displayName,
+            owner: userAUTH.data().username,
             players: {
                 
             }
