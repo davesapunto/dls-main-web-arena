@@ -10,6 +10,9 @@ const TournamentCreation = () => {
     const [type, setType] = useState('');
     const [mode, setMode] = useState('');
     const [game, setGame] = useState('');
+    const [checkin, setCheckin] = useState('');
+    const [report, setReport] = useState('');
+    const [screenshot, setScreenshot] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
     //settings
@@ -178,10 +181,18 @@ const TournamentCreation = () => {
                             Check-in
                         </h1>
                         <div className="setup-page2-1">
-                            <button>
+                            <button onClick={
+                                () => {
+                                    setCheckin(false);
+                                }
+                            }>
                                 Disabled
                             </button>
-                            <button>
+                            <button onClick={
+                                () => {
+                                    setCheckin(true);
+                                }
+                            }>
                                 Enabled
                             </button>
                         </div>
@@ -189,10 +200,14 @@ const TournamentCreation = () => {
                             Match Score Reporting
                         </h1>
                         <div className="setup-page2-1">
-                            <button>
+                            <button onClick={() => {
+                                setReport('GM ONLY');
+                            }}>
                                 Game Masters Only
                             </button>
-                            <button>
+                            <button onClick={() => {
+                                setReport('GM AND PL');
+                            }}>
                                 Game Masters and Players
                             </button>
                         </div>
@@ -200,10 +215,14 @@ const TournamentCreation = () => {
                             Required Screenshot
                         </h1>
                         <div className="setup-page2-1">
-                            <button>
+                            <button onClick={() => {
+                                setScreenshot(false);
+                            }}>
                                 Disabled
                             </button>
-                            <button>
+                            <button onClick={() => {
+                                setScreenshot(true);
+                            }}>
                                 Enabled
                             </button>
                         </div>
