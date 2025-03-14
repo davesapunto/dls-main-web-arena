@@ -12,14 +12,19 @@ const TournamentCreation = () => {
     const [game, setGame] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
+    //settings
+    const [platform, setPlatform] = useState('');
+    const [checkin, isCheckin] = useState(false);
+
     //Socials
     const [discord, setDiscord] = useState("");
     const [twitch, setTwitch] = useState("");
     const [domain, setDomain] = useState("");
     const [website, setWebsite] = useState("");
-    const [facebook, setYoutube] = useState("");
+    const [facebook, setFacebook] = useState("");
     const [twitter, setTwitter] = useState("");
     const [instagram, setInstagram] = useState("");
+    const [youtube, setYoutube] = useState("");
 
     const Next = () =>{
         setCurrentPage(currentPage + 1);
@@ -37,8 +42,21 @@ const TournamentCreation = () => {
             mode: mode,
             game: game,
             owner: userAUTH.data().username,
+            settings: {
+                
+            },
             players: {
                 
+            },
+            socials: {
+                Discord: discord,
+                Twitch: twitch,
+                Domain: domain,
+                Website: website,
+                Facebook: facebook,
+                Twitter: twitter,
+                Instagram: instagram,
+                Youtube: youtube
             }
         }
         try {
@@ -207,21 +225,21 @@ const TournamentCreation = () => {
             {currentPage === 3 && (
                 <>
                     <div className = "page-2">
-                        <input placeholder="Discord Invite Link">
+                        <input placeholder="Discord Invite Link" onChange={(e) => {setDiscord(e.target.value)}}>
                         </input>
-                        <input placeholder="Your Twitch Username">
+                        <input placeholder="Your Twitch Username" onChange={(e) => {setTwitch(e.target.value)}}>
                         </input>
-                        <input placeholder="Contact@your-domain.com">
+                        <input placeholder="Contact@your-domain.com" onChange={(e) => {setDomain(e.target.value)}}>
                         </input>
-                        <input placeholder="https://www-your-website.com">
+                        <input placeholder="https://www-your-website.com" onChange={(e) => {setWebsite(e.target.value)}}>
                         </input>
-                        <input placeholder="Your Facebook Username">
+                        <input placeholder="Your Facebook Username" onChange={(e) => {setFacebook(e.target.value)}}>
                         </input>
-                        <input placeholder="Your Youtube Username">
+                        <input placeholder="Your Youtube Username" onChange={(e) => {setYoutube(e.target.value)}}>
                         </input>
-                        <input placeholder="Your Twitter Username">
+                        <input placeholder="Your Twitter Username" onChange={(e) => {setTwitter(e.target.value)}}>
                         </input>
-                        <input placeholder="Your Instagram Username">
+                        <input placeholder="Your Instagram Username" onChange={(e) => {setInstagram(e.target.value)}}>
                         </input>
                     </div>
                     <div className = "page-button2">
