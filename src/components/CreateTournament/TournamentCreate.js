@@ -10,14 +10,14 @@ const TournamentCreation = () => {
     const [type, setType] = useState('');
     const [mode, setMode] = useState('');
     const [game, setGame] = useState('');
-    const [checkin, setCheckin] = useState('');
-    const [report, setReport] = useState('');
-    const [screenshot, setScreenshot] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
     //settings
-    const [platform, setPlatform] = useState('');
-    const [checkin, isCheckin] = useState(false);
+    const [report, setReport] = useState('');
+    const [region, setRegion] = useState('');
+    const [device, setDevice] = useState('PC');
+    const [checkin, setCheckin] = useState(false);
+    const [screenshot, setScreenshot] = useState(false);
 
     //Socials
     const [discord, setDiscord] = useState("");
@@ -33,11 +33,25 @@ const TournamentCreation = () => {
         setCurrentPage(currentPage + 1);
     }
 
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    const fulldate = `${day}-${month}-${year}`;
+
     const saveData = async () => {
+        //check muna kung may kulang na input si user pag meron reset page to 1
+        if (name.trim() === '' || type.trim() === '' || mode.trim() === '' ||
+            report.trim() === '' || region.trim() === '') {
+                alert('MISSING INPUTS');
+                setCurrentPage(1);
+                return;
+        }
+
         //backend
         const user = doc(DB, 'users', auth.currentUser.uid);
         const userAUTH = await getDoc(user);
-        console.log(userAUTH.data());
 
         const data = {
             name: name,
@@ -45,8 +59,13 @@ const TournamentCreation = () => {
             mode: mode,
             game: game,
             owner: userAUTH.data().username,
+            dateCreated: fulldate,
+            status: 'on-going',
             settings: {
-                
+                Platform: device,
+                CheckIn: checkin,
+                Region: region,
+                Screenshot: screenshot
             },
             players: {
                 
@@ -65,6 +84,7 @@ const TournamentCreation = () => {
         try {
             await setDoc(doc(DB, 'tournaments', name), data).then(() => {
                 alert('tournament added');
+                window.location.reload();
             });
         } catch (error) {
             alert(error.message);
@@ -171,10 +191,29 @@ const TournamentCreation = () => {
                         <h1>
                             Platform
                         </h1>
-                        <input placeholder="Select your region/Server">
-                        </input>
-                        <input placeholder="Select your Platform">
-                        </input>
+                        <select style=
+                        {
+                            {
+                                width: '70%',
+                                height: 50,
+                                borderRadius: 10
+                            }
+                        } onChange={(e) => {setRegion(e.target.value)}}>
+                            <option>SELECT REGION</option>
+                            <option>ASIA</option>
+                            <option>SEA</option>
+                        </select>
+                        <select style=
+                        {
+                            {
+                                height: 50,
+                                borderRadius: 10
+                            }
+                        } onChange={(e) => {setDevice(e.target.value)}}>
+                            <option>SELECT OPTION</option>
+                            <option>PC</option>
+                            <option>MOBILE</option>
+                        </select>
                     </div>
                     <div className="setup-page2">
                         <h1>
