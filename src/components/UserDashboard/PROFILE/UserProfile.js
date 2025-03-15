@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../PROFILE/ProfileView.css';
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { auth, DB } from "../../firebase-config";
+import { motion } from "motion/react";
+import { FaSearch } from "react-icons/fa";
 
 const ProfileView = () => {
 
     const [users, setUser] = useState('');
     const [tournaments, setTournaments] = useState([]); 
+    const [DISPLAYTOURNAMENTS, SETDISPLAY] = useState('');
+    const [page, setPage] = useState(1);
+    var searched = '';
+
 
     const fetchUserData = async () => {
         const user = auth.currentUser.uid;
@@ -22,7 +28,6 @@ const ProfileView = () => {
         
     }
 
-
     const fetchData = async () => { //eto yung pang fetch ng data sa firebase
         const tournas = collection(DB, 'tournaments');
             try {
@@ -37,23 +42,77 @@ const ProfileView = () => {
             }
     };
 
-    const filtered = tournaments.filter(t => t.owner === users.username);
-
-    const tableData = filtered.map(items => //ETO MAG LALAGAY ITEMS SA TABLE TROPA
-        <tr>
-            <td>{items.name}</td>
-            <td>{items.owner}</td>
-            <td>{items.mode}</td>
-            <td>{items.dateCreated}</td>
-            <td>{items.status}</td>
-        </tr>
-    );
-    fetchData();
-    fetchUserData();
+    useEffect(() => { //load mga data isang beses lang
+        fetchData();
+        fetchUserData();
+    }, []);
 
     const RenderTournaments = () => {
+
+        const filtered = tournaments.filter(t => t.owner === users.username); //filters (ps. diko alam kung pede shortcutin to using if else eh sa iba ko nalang try)
+        const NameFiltered = filtered.filter(i => i.name === DISPLAYTOURNAMENTS);
+
+        const DataFiltered = NameFiltered.map((items, index) => 
+            <motion.tr 
+            initial={{opacity: 0, y: 75}}
+            animate={{opacity: 1, y: 0}}
+            transition={{delay: `.${index}`, duration: .5}}>
+                <td style={{fontWeight: 'bold', fontSize: 'large'}}>{items.name}</td>
+                <td>{items.game}</td>
+                <td>{items.mode}</td>
+                <td>{items.dateCreated}</td>
+                <td>{items.status}</td>
+            </motion.tr>
+        );
+
+
+        const tableData = filtered.map((items,index) =>  //ETO MAG LALAGAY ITEMS SA TABLE TROPA
+            <motion.tr 
+            initial={{opacity: 0, y: 75}}
+            animate={{opacity: 1, y: 0}}
+            transition={{delay: `.${index}`, duration: .5}}>
+                <td style={{fontWeight: 'bold', fontSize: 'large'}}>{items.name}</td>
+                <td>{items.game}</td>
+                <td>{items.mode}</td>
+                <td>{items.dateCreated}</td>
+                <td>{items.status}</td>
+            </motion.tr>
+        );
+
         return (
             <div className="Tournaments-container">
+                <motion.h1 
+                initial={{opacity: 0, y: 75}}
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: .3, duration: .5}}
+                style=
+                {
+                    {
+                        marginTop: 0,
+                        padding: 0,
+                        color: 'white'
+                    }
+                }>
+                    TOURNAMENTS
+                </motion.h1>
+                <motion.div 
+                initial={{opacity: 0, y: 75}}
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: .5, duration: .5}}
+                className="seach-tournament">
+                    <input type="text" 
+                    style=
+                    {
+                        {
+                            width: '50%',
+                            marginBottom: 20
+                        }
+                    } placeholder="Enter Tournament Name" onChange={(text) => 
+                    {
+                        searched = text.target.value;
+                    }}/>
+                    <FaSearch color="white" style={{marginLeft: 20, cursor: 'pointer'}} className="search" onClick={() => SETDISPLAY(searched)}/>
+                </motion.div>
                 <table className="blueTable">
                 <thead>
                 <tr>
@@ -65,13 +124,23 @@ const ProfileView = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {tableData}
+                {DISPLAYTOURNAMENTS === '' ? tableData:DataFiltered}
                 </tbody>
                 </table>
             </div>
         );
     }
 
+        
+    const RenderFriends = () => {
+        return (
+            <div>
+                
+            </div>
+        );
+    }
+
+    
     const RenderDisplay = () => {
         return (
             <div className="profileview">
@@ -87,13 +156,13 @@ const ProfileView = () => {
             </div>
             <div className="more-info">
                 <ul>
-                    <li>FRIENDS</li>
-                    <li>TOURNAMENTS</li>
-                    <li>LINKS</li>
+                    <li onClick={() => setPage(1)}>FRIENDS</li>
+                    <li onClick={() => setPage(2)}>TOURNAMENTS</li>
+                    <li onClick={() => setPage(3)}>LINKS</li>
                 </ul>
             </div>
-            <div className="Main-Content">
-                <RenderTournaments/>
+            <div className="Main-Content-Profile">
+                {page === 1 ? null : page === 2 ? <RenderTournaments/> : null}
             </div>
         </div>
         );

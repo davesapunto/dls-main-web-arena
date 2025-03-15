@@ -31,6 +31,17 @@
     border-bottom: 1px solid white;
 }
 
+.search {
+  scale: 1.3;
+  transition: scale .3s ease;
+}
+
+
+.search:hover {
+  scale: 1.5;
+  transition: scale .3s ease;
+}
+
 .more-info li {
     display: inline;
     list-style: none;
@@ -59,7 +70,7 @@
     height: auto;
 }
 
-.Main-Content {
+.Main-Content-Profile {
     width: 100%;
     height: 100vh;
     padding: 50px;
@@ -82,7 +93,7 @@ table.blueTable {
     color: white;
   }
   table.blueTable tr:nth-child(even) {
-    background: #D0E4F5;
+    background: transparent;
   }
   table.blueTable thead {
     background: transparent;
