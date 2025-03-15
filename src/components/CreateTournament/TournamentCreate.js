@@ -54,6 +54,7 @@ const TournamentCreation = () => {
         const userAUTH = await getDoc(user);
 
         const data = {
+            id: auth.currentUser.uid,
             name: name,
             type: type,
             mode: mode,

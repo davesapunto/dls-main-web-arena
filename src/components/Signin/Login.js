@@ -51,9 +51,19 @@ const Login = () => {
         return;
       } else {
         await setDoc(doc(DB, 'users', user.uid), {
+          id: user.uid,
           email: user.email,
           username: user.displayName,
-          darkcoins: 0
+          darkcoins: 0,
+          wins: 0,
+          losses: 0,
+          tournaments: 0,
+          friends: {
+
+          },
+          friendRQ: {
+
+          }
         }).then(() => {
           alert('USER LOGGED IN');
           navigate('/dashboard');

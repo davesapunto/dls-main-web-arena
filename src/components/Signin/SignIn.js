@@ -35,9 +35,19 @@ const Signup = () => {
         const userID = userCredential.user;
 
         await setDoc(doc(DB, 'users', userID.uid), {
+          id: userID.uid,
           email: formData.email,
           username: `${formData.firstName} ${formData.lastName}`,
-          darkcoins: 0
+          darkcoins: 0,
+          wins: 0,
+          losses: 0,
+          tournaments: 0,
+          friends: {
+
+          },
+          friendRQ: {
+
+          }
         }).then(() => {
           alert('USER CREATED');
           navigate('/Login');
