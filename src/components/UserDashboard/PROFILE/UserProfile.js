@@ -261,19 +261,13 @@ const ProfileView = () => {
                     friends: arrayUnion(users) // nag ai nako dito kakahilo to eh
                 }, { merge: true });
             });
-
-            console.log(selectedUser.friends);
-
-            
-
         } catch (error) {
             console.log('ERROR FETCHING AT LINE 236 USERPROFILE.JS ' + error.message);
-        } 
-
-
-        fetchData(); //reload data
-        fetchAllUsers();
-        fetchUserData();
+        } finally {             
+            fetchData(); //reload data
+            fetchAllUsers();
+            fetchUserData();
+        }
     }
 
     const MainFriends = users.friends.map((data,index) => 
