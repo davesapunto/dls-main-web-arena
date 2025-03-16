@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../PROFILE/ProfileView.css';
-import { doc, getDoc, collection, getDocs, setDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, setDoc, arrayUnion } from "firebase/firestore";
 import { auth, DB } from "../../firebase-config";
 import { motion } from "motion/react";
 import { FaSearch } from "react-icons/fa";
@@ -13,7 +13,7 @@ const ProfileView = () => {
     const [page, setPage] = useState(1);
     const [USERSEARCHED, setSearchedUser] = useState('');
     const [allUsers, setAllUsers] = useState([]);
-    const [FRIENDS_PAGE, setFPP] = useState(1);
+    const [FRIENDS_PAGE, setFPP] = useState(0);
     var searched = '';
     var searchedUSER = '';
 
@@ -164,11 +164,13 @@ const ProfileView = () => {
         const request = doc(DB, 'users', id);
         const fetch = await getDoc(request);
         const user = fetch.data().friendRQ; //get requests
-        requests = user;
+        requests = Array.isArray(user) ? user : [];
 
-        const checkDuplicate = requests.some(data => data.id === users.id); //diko alam tong some nato HAHAH nisabi lang ng AI
+        const checkDuplicate = requests.some(data => data.id === users.id);
+        const check_friend = users.friends.some(data => data.id === fetch.data().id)
+        //diko alam tong some nato HAHAH nisabi lang ng AI
         //pero yung some chinecheck niya each element kung may kaparehas ba
-        if (checkDuplicate) {
+        if (checkDuplicate || check_friend) {
             alert('REQUEST ALREADY SENT');
             return;
         } else {
@@ -180,7 +182,6 @@ const ProfileView = () => {
                     ...fetch.data(),    
                     friendRQ: requests
                 }).then(() => {
-                    console.log(fetch.data().friendRQ);
                     alert('Request Sent.');
                 });
     
@@ -228,22 +229,23 @@ const ProfileView = () => {
     const AcceptFriend = async (user) => { //this some data engineering shi tho
         let newList = [];
         let friendRequestList = [];
-        const currentFriends = users.friends;
+        const currentFriends = Array.isArray(users.friends) ? users.friends : [];
         const userRequests = users.friendRQ;
         newList = currentFriends;
         friendRequestList = userRequests;
         
-        
-        const checker = newList.some(data => data.id === user);
-
-        if (checker) { //CHECK KUNG NAG EEXIST NA NGA BA YUNG I AADD SA DB
-            alert('request already sent');
-            return;
-        }
         try {
             const fetch = await getDoc(doc(DB, 'users', user));
             const DATA = await getDoc(doc(DB, 'users', users.id));
             const selectedUser = fetch.data();
+
+            const checker = newList.some(data => data.id === user);
+
+            if (checker) { //CHECK KUNG NAG EEXIST NA NGA BA YUNG I AADD SA DB
+                alert('request already sent');
+                return;
+            }
+
             newList.push(selectedUser); 
             //FETCH MUNA NATEN MGA NAG EEXIST NA FRIENDS NA THEN UPDATE THE DB
             //CHECK IF NAG EEXIST NA ANG SELECTED PERSON SA DB
@@ -254,7 +256,15 @@ const ProfileView = () => {
                 ...DATA.data(),
                 friends: newList,
                 friendRQ: filtered
+            }).then(async () => {            
+                await setDoc(doc(DB, 'users', selectedUser.id), {
+                    friends: arrayUnion(users) // nag ai nako dito kakahilo to eh
+                }, { merge: true });
             });
+
+            console.log(selectedUser.friends);
+
+            
 
         } catch (error) {
             console.log('ERROR FETCHING AT LINE 236 USERPROFILE.JS ' + error.message);
@@ -265,6 +275,18 @@ const ProfileView = () => {
         fetchAllUsers();
         fetchUserData();
     }
+
+    const MainFriends = users.friends.map((data,index) => 
+        <motion.div 
+        initial={{opacity: 0, y: 75}}
+        animate={{opacity: 1, y: 0}}
+        transition={{delay: `.${index}`, duration: .5}}
+        key={index} 
+        className="friend-card" style={{marginBottom: 50}}>
+            <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
+            <img src={require('../../images/icons8-person-96.png')}/>
+        </motion.div>
+    );
 
     const FriendRequests = users.friendRQ.map((data, index) => 
         <motion.div 
@@ -283,6 +305,13 @@ const ProfileView = () => {
 
         return (
             <div className='friends-tab'>
+                <motion.h1
+                initial={{opacity: 0, y: 75}}   
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: .3, duration: .5}} className="friend-selection"
+                onClick={() => setFPP(0)}>
+                    FRIENDS {`(${Object.keys(users.friends).length})`}
+                </motion.h1>
                 <motion.h1
                 initial={{opacity: 0, y: 75}}   
                 animate={{opacity: 1, y: 0}}
@@ -317,8 +346,8 @@ const ProfileView = () => {
                     <FaSearch color="white" style={{marginLeft: 20, cursor: 'pointer'}} className="search" onClick={() => setSearchedUser(searchedUSER)}/>
                 </motion.div> : null}
                 <div className="friends-grid">
-                {USERSEARCHED === '' //AI to hirap ng logic eh
-                ? (FRIENDS_PAGE === 1 ? FindFriends : FRIENDS_PAGE === 2 ? FriendRequests : null) 
+                {USERSEARCHED === '' 
+                ? (FRIENDS_PAGE === 1 ? FindFriends : FRIENDS_PAGE === 2 ? FriendRequests : MainFriends) 
                 : DisplaySearched}
 
                 </div>
