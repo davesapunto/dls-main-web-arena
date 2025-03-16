@@ -225,7 +225,7 @@ const ProfileView = () => {
     );
 
     
-    const AcceptFriend = async (user) => {
+    const AcceptFriend = async (user) => { //this some data engineering shi tho
         let newList = [];
         let friendRequestList = [];
         const currentFriends = users.friends;
@@ -236,7 +236,7 @@ const ProfileView = () => {
         
         const checker = newList.some(data => data.id === user);
 
-        if (checker) {
+        if (checker) { //CHECK KUNG NAG EEXIST NA NGA BA YUNG I AADD SA DB
             alert('request already sent');
             return;
         }
@@ -244,14 +244,16 @@ const ProfileView = () => {
             const fetch = await getDoc(doc(DB, 'users', user));
             const DATA = await getDoc(doc(DB, 'users', users.id));
             const selectedUser = fetch.data();
-            newList.push(selectedUser); //FETCH MUNA NATEN MGA NAG EEXIST NA FRIENDS NA THEN UPDATE THE DB
+            newList.push(selectedUser); 
+            //FETCH MUNA NATEN MGA NAG EEXIST NA FRIENDS NA THEN UPDATE THE DB
             //CHECK IF NAG EEXIST NA ANG SELECTED PERSON SA DB
+
+            const filtered = friendRequestList.filter(data => data.id !== user);
 
             await setDoc(doc(DB,'users',users.id), { //ADD THE UPDATED ARRAY DITO
                 ...DATA.data(),
-                friends: newList
-            }).then(() => {
-                console.log(friendRequestList);
+                friends: newList,
+                friendRQ: filtered
             });
 
         } catch (error) {
@@ -259,7 +261,7 @@ const ProfileView = () => {
         } 
 
 
-        fetchData();
+        fetchData(); //reload data
         fetchAllUsers();
         fetchUserData();
     }
