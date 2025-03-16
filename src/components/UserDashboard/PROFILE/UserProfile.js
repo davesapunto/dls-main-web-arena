@@ -11,7 +11,9 @@ const ProfileView = () => {
     const [tournaments, setTournaments] = useState([]); 
     const [DISPLAYTOURNAMENTS, SETDISPLAY] = useState('');
     const [page, setPage] = useState(1);
+    const [USERSEARCHED, setSearchedUser] = useState('');
     const [allUsers, setAllUsers] = useState([]);
+    const [FRIENDS_PAGE, setFPP] = useState(1);
     var searched = '';
     var searchedUSER = '';
 
@@ -56,11 +58,14 @@ const ProfileView = () => {
                 console.error(error.message);
             }
     };
+    
+    
 
     useEffect(() => { //load mga data isang beses lang
         fetchData();
         fetchUserData();
         fetchAllUsers();
+        console.log('LOADING DATA...');
     }, []);
 
     const RenderTournaments = () => {
@@ -149,6 +154,9 @@ const ProfileView = () => {
 
         
     const RenderFriends = () => {
+
+
+
     const friendFilter = allUsers.filter(friends => friends.id !== users.id);
 
     const RequestFriend = async (id) => { //add friend function
@@ -198,25 +206,98 @@ const ProfileView = () => {
         </motion.div>
     );
 
-    const searchFriends = allUsers.filter((data,index) => data.username === 'TREK');
+    const searchFriends = allUsers.filter((data) => data.username === USERSEARCHED || data.id === USERSEARCHED);
+
+    const DisplaySearched = searchFriends.map((data,index) => 
+        <motion.div 
+        initial={{opacity: 0, y: 75}}
+        animate={{opacity: 1, y: 0}}
+        transition={{delay: `.${index}`, duration: .5}}
+        key={index} 
+        onClick={() => 
+            {
+                RequestFriend(data.id);
+            }}
+        className="friend-card" style={{marginBottom: 50}}>
+            <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
+            <img src={require('../../images/icons8-person-96.png')}/>
+        </motion.div>
+    );
+
+    
+    const AcceptFriend = async (user) => {
+        let newList = [];
+        let friendRequestList = [];
+        const currentFriends = users.friends;
+        const userRequests = users.friendRQ;
+        newList = currentFriends;
+        friendRequestList = userRequests;
+        
+        
+        const checker = newList.some(data => data.id === user);
+
+        if (checker) {
+            alert('request already sent');
+            return;
+        }
+        try {
+            const fetch = await getDoc(doc(DB, 'users', user));
+            const DATA = await getDoc(doc(DB, 'users', users.id));
+            const selectedUser = fetch.data();
+            newList.push(selectedUser); //FETCH MUNA NATEN MGA NAG EEXIST NA FRIENDS NA THEN UPDATE THE DB
+            //CHECK IF NAG EEXIST NA ANG SELECTED PERSON SA DB
+
+            await setDoc(doc(DB,'users',users.id), { //ADD THE UPDATED ARRAY DITO
+                ...DATA.data(),
+                friends: newList
+            }).then(() => {
+                console.log(friendRequestList);
+            });
+
+        } catch (error) {
+            console.log('ERROR FETCHING AT LINE 236 USERPROFILE.JS ' + error.message);
+        } 
+
+
+        fetchData();
+        fetchAllUsers();
+        fetchUserData();
+    }
+
+    const FriendRequests = users.friendRQ.map((data, index) => 
+        <motion.div 
+        initial={{opacity: 0, y: 75}}
+        animate={{opacity: 1, y: 0}}
+        transition={{delay: `.${index}`, duration: .5}}
+        key={index} 
+        className="friend-card" style={{marginBottom: 50}}>
+            <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
+            <img src={require('../../images/icons8-person-96.png')}/>
+            <button id="btn" value={data.id} className="js-btn" onClick={(user) => AcceptFriend(user.target.value)}>ACCEPT</button>
+            <button id="btn" className="js-btn">DECLINE</button>
+        </motion.div>
+    );
+
 
         return (
             <div className='friends-tab'>
                 <motion.h1
                 initial={{opacity: 0, y: 75}}   
                 animate={{opacity: 1, y: 0}}
-                transition={{delay: .3, duration: .5}} className="friend-selection">
+                transition={{delay: .3, duration: .5}} className="friend-selection"
+                onClick={() => setFPP(1)}>
                     FIND FRIENDS
                 </motion.h1>
                 <motion.h1
                 initial={{opacity: 0, y: 75}}   
                 animate={{opacity: 1, y: 0}}
-                transition={{delay: .4, duration: .5}} className="friend-selection">
+                transition={{delay: .4, duration: .5}} className="friend-selection"
+                onClick={() => setFPP(2)}>
                     {Object.keys(users.friendRQ).length === 0 
                     ? 'FRIEND REQUEST (none)' : 
                     `FRIEND REQUESTS (${Object.keys(users.friendRQ).length})`}
                 </motion.h1>
-                <motion.div
+                {FRIENDS_PAGE === 1 ? <motion.div
                 initial={{opacity: 0, y: 75}}
                 animate={{opacity: 1, y: 0}}
                 transition={{delay: .4, duration: .5}}>
@@ -229,12 +310,15 @@ const ProfileView = () => {
                         }
                     } placeholder="Enter ID or Name" onChange={(text) => 
                     {
-                        searched = text.target.value;
+                        searchedUSER = text.target.value;
                     }}/>
-                    <FaSearch color="white" style={{marginLeft: 20, cursor: 'pointer'}} className="search" onClick={() => SETDISPLAY(searched)}/>
-                </motion.div>
+                    <FaSearch color="white" style={{marginLeft: 20, cursor: 'pointer'}} className="search" onClick={() => setSearchedUser(searchedUSER)}/>
+                </motion.div> : null}
                 <div className="friends-grid">
-                    {FindFriends}
+                {USERSEARCHED === '' //AI to hirap ng logic eh
+                ? (FRIENDS_PAGE === 1 ? FindFriends : FRIENDS_PAGE === 2 ? FriendRequests : null) 
+                : DisplaySearched}
+
                 </div>
             </div>
         );

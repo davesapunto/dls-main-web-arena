@@ -65,6 +65,13 @@
     transform: translateX(40px) translateY(220px)
 }
 
+#btn {
+  margin: 2px;
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+}
+
 .Tournaments-container {
     width: 93%;
     height: auto;
