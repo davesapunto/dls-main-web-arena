@@ -60,10 +60,13 @@ const ProfileView = () => {
     };
 
     useEffect(() => { //load mga data isang beses lang
-        fetchData();
-        fetchUserData();
-        fetchAllUsers();
-    }, [users]);
+        if (FRIENDS_PAGE === 0 && page === 1) {
+            fetchData();
+            fetchUserData();
+            fetchAllUsers();
+            console.log('loaded');
+        }
+    }, [users, FRIENDS_PAGE, page]);
 
     const RenderTournaments = () => {
 
@@ -336,7 +339,12 @@ const ProfileView = () => {
             </div>
             <div className="more-info">
                 <ul>
-                    <li onClick={() => setPage(1)}>FRIENDS</li>
+                    <li onClick={() => 
+                        {
+                            setPage(1);
+                            setFPP(0);
+                        }
+                    }>FRIENDS</li>
                     <li onClick={() => setPage(2)}>TOURNAMENTS</li>
                     <li onClick={() => setPage(3)}>LINKS</li>
                 </ul>
