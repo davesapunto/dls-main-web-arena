@@ -90,6 +90,12 @@ const UserDashboard = () => {
           }}>
             <SidebarItem Icon={FaNewspaper} label="News" />
           </a>
+          <a onClick={() => {
+            setPage({...pages, Tournaments: false, News: true, Organize: false, Profile: false});
+          }}>
+            <SidebarItem Icon={FaTrophy} label="My Tournaments" />
+          </a>
+
           
         </ul>
         <div className="user-container">
