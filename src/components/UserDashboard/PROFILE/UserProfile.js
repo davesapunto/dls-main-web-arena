@@ -4,6 +4,7 @@ import { doc, getDoc, collection, getDocs, setDoc, arrayUnion} from "firebase/fi
 import { auth, DB } from "../../firebase-config";
 import { motion } from "motion/react";
 import { FaSearch } from "react-icons/fa";
+import DisplayUser from "./UserProfileDisplay";
 
 const ProfileView = () => {
 
@@ -14,6 +15,8 @@ const ProfileView = () => {
     const [USERSEARCHED, setSearchedUser] = useState('');
     const [allUsers, setAllUsers] = useState([]);
     const [FRIENDS_PAGE, setFPP] = useState(0);
+    const [userSelected, setSelectedUser] = useState('');
+    const [displayUser, setDisplayUser] = useState(false);
     const [friends, setFriends] = useState();
     var searched = '';
     var searchedUSER = '';
@@ -22,6 +25,7 @@ const ProfileView = () => {
         const user = auth.currentUser.uid;
         const data = doc(DB, 'users', user);
         const userData = await getDoc(data);
+        
 
         if (userData.exists()) {
             setUser(userData.data());
@@ -30,6 +34,8 @@ const ProfileView = () => {
             console.log('user not found');
         }
     }
+    
+
     const fetchAllUsers = async () => {
         try {
             const users = [{}];
@@ -59,14 +65,15 @@ const ProfileView = () => {
             }
     };
 
+
+
     useEffect(() => { //load mga data isang beses lang
-        if (FRIENDS_PAGE === 0 && page === 1) {
+        if (FRIENDS_PAGE === 0 && page === 1 && !displayUser) {
             fetchData();
             fetchUserData();
             fetchAllUsers();
-            console.log('loaded');
         }
-    }, [users, FRIENDS_PAGE, page]);
+    }, [users, FRIENDS_PAGE, page, displayUser]);
 
     const RenderTournaments = () => {
 
@@ -188,13 +195,14 @@ const ProfileView = () => {
             }
         }
     }
-
     const FindFriends = friendFilter.map((data, index) => 
         <div
         key={index} 
         onClick={() => 
             {
-                RequestFriend(data.id);
+                // RequestFriend(data.id);
+                displayUser ? setDisplayUser(false) : setDisplayUser(true);
+                setSelectedUser(data);
             }}
         className="friend-card" style={{marginBottom: 50}}>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
@@ -265,7 +273,14 @@ const ProfileView = () => {
     const MainFriends = users.friends.map((data,index) => 
         <div
         key={index} 
-        className="friend-card" style={{marginBottom: 50}}>
+        className="friend-card" style={{marginBottom: 50}} onClick=
+        {
+            () => 
+            {
+                displayUser ? setDisplayUser(false) : setDisplayUser(true);
+                setSelectedUser(data);
+            }
+        }>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
             <img src={require('../../images/icons8-person-96.png')}/>
         </div>
@@ -322,11 +337,11 @@ const ProfileView = () => {
             </div>
         );
     }
-
     
     const RenderDisplay = () => {
         return (
             <div className="profileview">
+            {displayUser ? <DisplayUser user={userSelected} visible={displayUser} currentUser={users}/> : null}
             <div className="header-image">
                 <img src={require('../../images/qiyana.jpeg')} style={{width: '100%', height: 'inherit', display: 'flex'}}/>
                 <div className="profile-picture">
@@ -372,6 +387,7 @@ const ProfileView = () => {
             }
         }>
             <h1>LOADING . . .</h1>
+            
         </div> : <RenderDisplay/>}
         </>
     );
