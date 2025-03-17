@@ -14,6 +14,7 @@ const ProfileView = () => {
     const [USERSEARCHED, setSearchedUser] = useState('');
     const [allUsers, setAllUsers] = useState([]);
     const [FRIENDS_PAGE, setFPP] = useState(0);
+    const [friends, setFriends] = useState();
     var searched = '';
     var searchedUSER = '';
 
@@ -28,9 +29,7 @@ const ProfileView = () => {
         } else {
             console.log('user not found');
         }
-        
     }
-
     const fetchAllUsers = async () => {
         try {
             const users = [{}];
@@ -41,6 +40,7 @@ const ProfileView = () => {
             });
             users.shift();
             setAllUsers(users);
+            setFriends(users.friends);
         } catch (error) {
             console.log(error.message);
         }
@@ -58,15 +58,13 @@ const ProfileView = () => {
                 console.error(error.message);
             }
     };
-    
-    
 
     useEffect(() => { //load mga data isang beses lang
         fetchData();
         fetchUserData();
         fetchAllUsers();
         console.log('LOADING DATA...');
-    }, []);
+    }, [friends]);
 
     const RenderTournaments = () => {
 
@@ -145,7 +143,7 @@ const ProfileView = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {DISPLAYTOURNAMENTS === '' ? tableData:DataFiltered}
+                {DISPLAYTOURNAMENTS === '' ? tableData : DataFiltered}
                 </tbody>
                 </table>
             </div>
@@ -154,8 +152,6 @@ const ProfileView = () => {
 
         
     const RenderFriends = () => {
-
-
 
     const friendFilter = allUsers.filter(friends => friends.id !== users.id);
 
