@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../PROFILE/ProfileView.css';
-import { doc, getDoc, collection, getDocs, setDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, setDoc, arrayUnion} from "firebase/firestore";
 import { auth, DB } from "../../firebase-config";
 import { motion } from "motion/react";
 import { FaSearch } from "react-icons/fa";
@@ -40,7 +40,7 @@ const ProfileView = () => {
             });
             users.shift();
             setAllUsers(users);
-            setFriends(users.friends);
+            setFriends(users.friendsRQ);
         } catch (error) {
             console.log(error.message);
         }
@@ -59,12 +59,14 @@ const ProfileView = () => {
             }
     };
 
+    
+
     useEffect(() => { //load mga data isang beses lang
         fetchData();
         fetchUserData();
         fetchAllUsers();
         console.log('LOADING DATA...');
-    }, [friends]);
+    }, [FRIENDS_PAGE]);
 
     const RenderTournaments = () => {
 
