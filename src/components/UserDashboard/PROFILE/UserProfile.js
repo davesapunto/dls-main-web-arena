@@ -56,18 +56,13 @@ const ProfileView = () => {
                 setTournaments(dataItems);
             } catch (error) {
                 console.error(error.message);
-            } finally {
-                fetchUserData();
-                fetchAllUsers();
             }
     };
 
-
     useEffect(() => { //load mga data isang beses lang
-        if (FRIENDS_PAGE === 0) {
-            fetchData();
-            console.log('LOADING DATA...');
-        }
+        fetchData();
+        fetchUserData();
+        fetchAllUsers();
     }, [users]);
 
     const RenderTournaments = () => {
