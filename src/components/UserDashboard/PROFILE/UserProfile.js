@@ -56,17 +56,19 @@ const ProfileView = () => {
                 setTournaments(dataItems);
             } catch (error) {
                 console.error(error.message);
+            } finally {
+                fetchUserData();
+                fetchAllUsers();
             }
     };
 
-    
 
     useEffect(() => { //load mga data isang beses lang
-        fetchData();
-        fetchUserData();
-        fetchAllUsers();
-        console.log('LOADING DATA...');
-    }, [FRIENDS_PAGE]);
+        if (FRIENDS_PAGE === 0) {
+            fetchData();
+            console.log('LOADING DATA...');
+        }
+    }, [users]);
 
     const RenderTournaments = () => {
 
@@ -190,10 +192,7 @@ const ProfileView = () => {
     }
 
     const FindFriends = friendFilter.map((data, index) => 
-        <motion.div 
-        initial={{opacity: 0, y: 75}}
-        animate={{opacity: 1, y: 0}}
-        transition={{delay: `.${index}`, duration: .5}}
+        <div
         key={index} 
         onClick={() => 
             {
@@ -202,16 +201,13 @@ const ProfileView = () => {
         className="friend-card" style={{marginBottom: 50}}>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
             <img src={require('../../images/icons8-person-96.png')}/>
-        </motion.div>
+        </div>
     );
 
     const searchFriends = allUsers.filter((data) => data.username === USERSEARCHED || data.id === USERSEARCHED);
 
     const DisplaySearched = searchFriends.map((data,index) => 
-        <motion.div 
-        initial={{opacity: 0, y: 75}}
-        animate={{opacity: 1, y: 0}}
-        transition={{delay: `.${index}`, duration: .5}}
+        <div
         key={index} 
         onClick={() => 
             {
@@ -220,7 +216,7 @@ const ProfileView = () => {
         className="friend-card" style={{marginBottom: 50}}>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
             <img src={require('../../images/icons8-person-96.png')}/>
-        </motion.div>
+        </div>
     );
 
     
@@ -269,61 +265,43 @@ const ProfileView = () => {
     }
 
     const MainFriends = users.friends.map((data,index) => 
-        <motion.div 
-        initial={{opacity: 0, y: 75}}
-        animate={{opacity: 1, y: 0}}
-        transition={{delay: `.${index}`, duration: .5}}
+        <div
         key={index} 
         className="friend-card" style={{marginBottom: 50}}>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
             <img src={require('../../images/icons8-person-96.png')}/>
-        </motion.div>
+        </div>
     );
 
     const FriendRequests = users.friendRQ.map((data, index) => 
-        <motion.div 
-        initial={{opacity: 0, y: 75}}
-        animate={{opacity: 1, y: 0}}
-        transition={{delay: `.${index}`, duration: .5}}
+        <div
         key={index} 
         className="friend-card" style={{marginBottom: 50}}>
             <p style={{margin: 0, padding: 0, fontWeight: 'bold'}}>{data.username}</p>        
             <img src={require('../../images/icons8-person-96.png')}/>
             <button id="btn" value={data.id} className="js-btn" onClick={(user) => AcceptFriend(user.target.value)}>ACCEPT</button>
             <button id="btn" className="js-btn">DECLINE</button>
-        </motion.div>
+        </div>
     );
 
 
         return (
             <div className='friends-tab'>
-                <motion.h1
-                initial={{opacity: 0, y: 75}}   
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: .3, duration: .5}} className="friend-selection"
+                <h1 className="friend-selection"
                 onClick={() => setFPP(0)}>
                     FRIENDS {`(${Object.keys(users.friends).length})`}
-                </motion.h1>
-                <motion.h1
-                initial={{opacity: 0, y: 75}}   
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: .3, duration: .5}} className="friend-selection"
+                </h1>
+                <h1 className="friend-selection"
                 onClick={() => setFPP(1)}>
                     FIND FRIENDS
-                </motion.h1>
-                <motion.h1
-                initial={{opacity: 0, y: 75}}   
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: .4, duration: .5}} className="friend-selection"
+                </h1>
+                <h1 className="friend-selection"
                 onClick={() => setFPP(2)}>
                     {Object.keys(users.friendRQ).length === 0 
                     ? 'FRIEND REQUEST (none)' : 
                     `FRIEND REQUESTS (${Object.keys(users.friendRQ).length})`}
-                </motion.h1>
-                {FRIENDS_PAGE === 1 ? <motion.div
-                initial={{opacity: 0, y: 75}}
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: .4, duration: .5}}>
+                </h1>
+                {FRIENDS_PAGE === 1 ? <div>
                 <input type="text" 
                     style=
                     {
@@ -336,7 +314,7 @@ const ProfileView = () => {
                         searchedUSER = text.target.value;
                     }}/>
                     <FaSearch color="white" style={{marginLeft: 20, cursor: 'pointer'}} className="search" onClick={() => setSearchedUser(searchedUSER)}/>
-                </motion.div> : null}
+                </div> : null}
                 <div className="friends-grid">
                 {USERSEARCHED === '' 
                 ? (FRIENDS_PAGE === 1 ? FindFriends : FRIENDS_PAGE === 2 ? FriendRequests : MainFriends) 
