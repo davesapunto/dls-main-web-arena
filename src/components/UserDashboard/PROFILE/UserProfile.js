@@ -341,7 +341,14 @@ const ProfileView = () => {
     const RenderDisplay = () => {
         return (
             <div className="profileview">
-            {displayUser ? <DisplayUser user={userSelected} visible={displayUser} currentUser={users}/> : null}
+            {displayUser ? 
+            <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            className="dp-container" onClick={() => setDisplayUser(false)}>
+                 <DisplayUser user={userSelected} visible={displayUser} currentUser={users}/>
+            </motion.div>
+            : null}
             <div className="header-image">
                 <img src={require('../../images/qiyana.jpeg')} style={{width: '100%', height: 'inherit', display: 'flex', objectFit: 'cover'}}/>
                 <div className="profile-picture">

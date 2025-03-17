@@ -52,13 +52,45 @@ const DisplayUser = (data) => {
 
     isfollowing();
 
+    const unFollow = async (datas) => {
+        try {
+            //selected user ang data
+            //yung datas ay ang id nung user na naka show sa card
+            const getCurrentFriends = await getDoc(doc(DB, 'users', data.currentUser.id));
+            const userFriends = getCurrentFriends.data().friends;
+            const selectedUserID = USER_DATA.map(data => data);
+
+            const filteredActiveUserFriends = userFriends.filter(selected => selected.id !== data.user.id);
+
+            const selectedUserData = await getDoc(doc(DB, 'users', data.user.id));
+            const selectedUserFriends = selectedUserData.data();
+
+            const s_u_filter = selectedUserFriends.friends.filter(selected => selected.id !== data.currentUser.id);
+
+
+            await setDoc(doc(DB, 'users', data.currentUser.id), {
+                ...data.currentUser,
+                friends: filteredActiveUserFriends
+            }).then(async () => {
+                await setDoc(doc(DB, 'users', data.user.id), {
+                    ...data.user, //may bug to hindi nabubura yung friend request (solution just get the data again at the db using getdoc)
+                    friends: s_u_filter
+                }).then(() => {
+                    console.log('success');
+                });
+            });
+
+
+
+        } catch (error) {
+            console.log('ERROR AT USER PROFILE DISPLAY UNFOLLOW' + error.message);
+        }
+    }
+
     return(
         <>
-        {data.visible ? <motion.div 
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        className="display-user">
-                <div className="user-card">
+        {data.visible ? 
+                <div className="user-card" onClick={(e) => e.stopPropagation()}>
                     <div className="user-header">
                         <img src={require('../../images/qiyana.jpeg')} style={{width: '100%', height: 'inherit', display: 'flex', objectFit: 'cover'}}/>
                     </div>
@@ -77,15 +109,20 @@ const DisplayUser = (data) => {
                     <div style={{textAlign: 'center'}}>
                         {/* LAGYAN NG ACCEPT FOLLOW BUTTON PAG TRUE */}
                         {isFriend ? (
-                        <button id="PD-btns">UNFOLLOW</button>
+                        <button id="PD-btns" onClick={
+                            () => {
+                                unFollow(data.user.id);
+                            }
+                        }>
+                            UNFOLLOW
+                        </button>
                         ) : requested ? (
                             <p>{String(data.user.username).toUpperCase()} SENT A FRIEND REQUEST</p>
                         ) : (
                             <button id="PD-btns" onClick={() => RequestFriend(data.user.id)}>FOLLOW</button>
                         )}
                     </div>
-                </div>
-            </motion.div> : null}
+                </div> : null}
         </>
     );
 }
