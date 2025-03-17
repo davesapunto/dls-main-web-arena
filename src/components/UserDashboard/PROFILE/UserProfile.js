@@ -343,9 +343,9 @@ const ProfileView = () => {
             <div className="profileview">
             {displayUser ? <DisplayUser user={userSelected} visible={displayUser} currentUser={users}/> : null}
             <div className="header-image">
-                <img src={require('../../images/qiyana.jpeg')} style={{width: '100%', height: 'inherit', display: 'flex'}}/>
+                <img src={require('../../images/qiyana.jpeg')} style={{width: '100%', height: 'inherit', display: 'flex', objectFit: 'cover'}}/>
                 <div className="profile-picture">
-                <img src={require('../../images/c4.png')} style={{width: '100%', height: 'inherit', borderRadius: '500px', position: 'inherit'}}/>
+                <img src={require('../../images/c4.png')} style={{width: '100%', height: 'inherit', borderRadius: '500px', position: 'inherit', objectFit:'cover'}}/>
                 </div>
             </div>
             <div className="user-infos">

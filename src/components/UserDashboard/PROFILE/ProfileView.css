@@ -104,12 +104,12 @@
 .friend-card {
   border: 2px solid rgb(0, 0, 0);
   border-radius: 50%; /* Ensures the card is circular */
-  text-align: center;
   width: 150px; /* Fixed width */
   height: 150px; /* Fixed height to match width for a perfect circle */
   margin: 0 auto; /* Centers the card in the grid cell */
   scale: 1;
   transition: scale .3s ease;
+  text-align: center;
 }
 .display-user {
   width: 93%;
@@ -124,13 +124,34 @@
 }
 
 .user-card {
-  text-align: center;
   width: 55%;
   height: 80%;
   border: 2px solid white;
   border-radius: 10px;
   background-color: black;
-  text-align: center;
+
+}
+
+.user-card h1, h3, p {
+  margin-left: 30px;  
+  margin-top: 0px;
+}
+
+#PD-btns {
+  width: 20%;
+  height: 50px;
+  scale: 1;
+  background-color: #444444;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: scale .3s ease;
+}
+
+#PD-btns:hover {
+  scale: 1.1;
+  transition: scale .3s ease;
+  cursor: pointer;
 }
 
 .user-header {
