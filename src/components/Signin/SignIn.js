@@ -78,7 +78,7 @@ const Signup = () => {
         await setDoc(doc(DB, 'users', user.uid), {
           email: user.email,
           username: user.displayName,
-          darkcoins: 0
+          darkcoins: 0,
         }).then(() => {
           alert('SIGNED UP WITH GOOGLE!');
           navigate('/dashboard');

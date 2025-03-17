@@ -58,12 +58,8 @@ const Login = () => {
           wins: 0,
           losses: 0,
           tournaments: 0,
-          friends: {
-
-          },
-          friendRQ: {
-
-          }
+          friends: [],
+          friendRQ: []
         }).then(() => {
           alert('USER LOGGED IN');
           navigate('/dashboard');
