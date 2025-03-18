@@ -11,29 +11,30 @@ const DisplayUser = (data) => {
     const USER_DATA = [data.user];
     const CURRENT_USER = [data.currentUser];
     const [open, setOpen] = useState(false);
-    const [follow, setFollow] = useState(false);
-    const [isFriend, setIsFriend] = useState();
-    const [requested, setRequested] = useState(false);
+    const [follow, setFollow] = useState('');
+    const [isFriend, setIsFriend] = useState('');
+    const [requested, setRequested] = useState('');
+    const [sent, setSent] = useState('');
     
     // console.log(CURRENT_USER.map(data => data.friends));
-        
     
     const RequestFriend = async (datas) => {
 
         try {
             const getSelectedData = (await getDoc(doc(DB, 'users', datas))).data();
 
-            const check = getSelectedData.friends.some(datas => datas.id === data.currentUser.id);
-
+            const check = getSelectedData.friendRQ.some(datas => datas.id === data.currentUser.id);
+            console.log(check);
             if (check) {
                 setIsFriend(check);
+                setSent('already sent a request');
                 return;
             } else {
                 await setDoc(doc(DB, 'users', datas), {
                     ...getSelectedData,
                     friendRQ: arrayUnion(data.currentUser)
                 },{merge:true} ).then(() => {
-                    alert('success');
+                    console.log('success');
                 });
             }
         } catch (error) {
@@ -51,6 +52,7 @@ const DisplayUser = (data) => {
     }
 
     isfollowing();
+    console.log(requested);
 
     const unFollow = async (datas) => {
         try {
@@ -67,16 +69,18 @@ const DisplayUser = (data) => {
 
             const s_u_filter = selectedUserFriends.friends.filter(selected => selected.id !== data.currentUser.id);
 
+            const test = (await getDoc(doc(DB, 'users', data.user.id))).data();
 
             await setDoc(doc(DB, 'users', data.currentUser.id), {
                 ...data.currentUser,
                 friends: filteredActiveUserFriends
             }).then(async () => {
                 await setDoc(doc(DB, 'users', data.user.id), {
-                    ...data.user, //may bug to hindi nabubura yung friend request (solution just get the data again at the db using getdoc)
+                    ...test, //may bug to hindi nabubura yung friend request (solution just get the data again at the db using getdoc)
                     friends: s_u_filter
                 }).then(() => {
                     console.log('success');
+                    window.location.reload();
                 });
             });
 
@@ -108,7 +112,9 @@ const DisplayUser = (data) => {
                     </div>
                     <div style={{textAlign: 'center'}}>
                         {/* LAGYAN NG ACCEPT FOLLOW BUTTON PAG TRUE */}
-                        {isFriend ? (
+                        <p style={{marginRight: 10}}>{sent}</p>
+                        {sent === '' ? <div>
+                            {isFriend ? (
                         <button id="PD-btns" onClick={
                             () => {
                                 unFollow(data.user.id);
@@ -116,11 +122,14 @@ const DisplayUser = (data) => {
                         }>
                             UNFOLLOW
                         </button>
-                        ) : requested ? (
+                        ) : isFriend === '' ? (<p>Loading...</p>)
+                        : requested ? (
                             <p>{String(data.user.username).toUpperCase()} SENT A FRIEND REQUEST</p>
                         ) : (
                             <button id="PD-btns" onClick={() => RequestFriend(data.user.id)}>FOLLOW</button>
                         )}
+                        </div> : null}
+                        
                     </div>
                 </div> : null}
         </>
