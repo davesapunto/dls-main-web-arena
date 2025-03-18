@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import './TCREATE.css';
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
 import { DB } from "../firebase-config";
 import { auth } from "../firebase-config";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Bracket generation functions
 const generateSingleEliminationBracket = (players) => {
@@ -72,7 +73,6 @@ const generateDoubleEliminationBracket = (players) => {
 
         // Losers' bracket matches (players who lost in the previous winners' bracket)
         for (let i = 0; i < previousWinnersMatches.length; i += 2) {
-            // Ensure we don't go out of bounds
             if (i + 1 < previousWinnersMatches.length) {
                 const match = {
                     round: round,
@@ -102,6 +102,14 @@ const TournamentCreation = () => {
     const [checkin, setCheckin] = useState(false);
     const [screenshot, setScreenshot] = useState(false);
 
+    // Additional Information
+    const [details, setDetails] = useState('');
+    const [rules, setRules] = useState('');
+    const [prizes, setPrizes] = useState('');
+    const [schedule, setSchedule] = useState('');
+    const [contact, setContact] = useState('');
+    const [poster, setPoster] = useState(null);
+
     // Socials
     const [discord, setDiscord] = useState("");
     const [twitch, setTwitch] = useState("");
@@ -117,10 +125,9 @@ const TournamentCreation = () => {
     }
 
     const date = new Date();
-    const day = date.getDay();
-    const month = date.getMonth();
+    const day = date.getDate(); // Fixed: getDate() instead of getDay()
+    const month = date.getMonth() + 1; // Fixed: month is 0-indexed
     const year = date.getFullYear();
-
     const fulldate = `${day}-${month}-${year}`;
 
     const saveData = async () => {
@@ -130,10 +137,10 @@ const TournamentCreation = () => {
             setCurrentPage(1);
             return;
         }
-    
+
         const players = Array.from({ length: 32 }, (_, i) => `Player ${i + 1}`); // Example players
         let bracket;
-    
+
         if (mode === 'SINGLE ELIMINATION') {
             bracket = generateSingleEliminationBracket(players);
         } else if (mode === 'DOUBLE ELIMINATION') {
@@ -143,12 +150,21 @@ const TournamentCreation = () => {
             alert('Please select a valid elimination mode.');
             return;
         }
-    
+
         const user = doc(DB, 'users', auth.currentUser.uid);
         const userAUTH = await getDoc(user);
-    
+
+        // Upload poster to Firebase Storage
+        let posterUrl = null;
+        if (poster) {
+            const storage = getStorage();
+            const storageRef = ref(storage, `posters/${Date.now()}_${poster.name}`); // Added timestamp to avoid name conflicts
+            await uploadBytes(storageRef, poster);
+            posterUrl = await getDownloadURL(storageRef);
+        }
+
         const data = {
-            id: auth.currentUser.uid,
+            uid: auth.currentUser.uid,
             name: name,
             type: type,
             mode: mode,
@@ -160,7 +176,8 @@ const TournamentCreation = () => {
                 Platform: device,
                 CheckIn: checkin,
                 Region: region,
-                Screenshot: screenshot
+                Screenshot: screenshot,
+                Reporting: report
             },
             players: {}, // You can include the players here if needed
             bracket: bracket, // Save the bracket to the database
@@ -173,16 +190,31 @@ const TournamentCreation = () => {
                 Twitter: twitter,
                 Instagram: instagram,
                 Youtube: youtube
-            }
+            },
+            details: details,
+            rules: rules,
+            prizes: prizes,
+            schedule: schedule,
+            contact: contact,
+            poster: posterUrl,
+            ownerID: auth.currentUser.uid
         }
-    
+
         try {
-            await setDoc(doc(DB, 'tournaments', name), data).then(() => {
-                alert('Tournament added');
+            // Generate a unique ID using Firebase's auto-generated IDs
+            const tournamentRef = doc(collection(DB, 'tournaments'));
+            const tournamentId = tournamentRef.id;
+            
+            // Add the tournament ID to the data
+            data.tournamentId = tournamentId;
+            
+            // Save the tournament with the unique ID
+            await setDoc(tournamentRef, data).then(() => {
+                alert('Tournament added successfully!');
                 window.location.reload();
             });
         } catch (error) {
-            alert(error.message);
+            alert(`Error adding tournament: ${error.message}`);
         }
     }
 
@@ -268,8 +300,8 @@ const TournamentCreation = () => {
                                 <span>Personal</span>
                             </label>
                             <label>
-                                <input type="radio" id="value-2" name="value-radio" value="2" onClick={() => setType('BUSINESS')} required />
-                                <span>Business</span>
+                                <input type="radio" id="value-2" name="value-radio" value="2" onClick={() => setType('PUBLIC')} required />
+                                <span>Public</span>
                             </label>
                             <span className="selection"></span>
                         </div>
@@ -319,6 +351,18 @@ const TournamentCreation = () => {
                             <button onClick={() => setScreenshot(false)}>Disabled</button>
                             <button onClick={() => setScreenshot(true)}>Enabled</button>
                         </div>
+                        <h1>Details</h1>
+                        <textarea placeholder="Enter tournament details" onChange={(e) => setDetails(e.target.value)} />
+                        <h1>Rules</h1>
+                        <textarea placeholder="Enter tournament rules" onChange={(e) => setRules(e.target.value)} />
+                        <h1>Prizes</h1>
+                        <textarea placeholder="Enter tournament prizes" onChange={(e) => setPrizes(e.target.value)} />
+                        <h1>Schedule</h1>
+                        <input type="date" placeholder="Enter tournament schedule" onChange={(e) => setSchedule(e.target.value)} />
+                        <h1>Contact</h1>
+                        <textarea placeholder="Enter contact information" onChange={(e) => setContact(e.target.value)} />
+                        <h1>Upload Poster</h1>
+                        <input type="file" onChange={(e) => setPoster(e.target.files[0])} />
                     </div>
                     <div className="page-button2">
                         <button className="previous-button" onClick={() => setCurrentPage(1)}>PREVIOUS</button>

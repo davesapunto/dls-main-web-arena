@@ -378,7 +378,9 @@ const ProfileView = () => {
     }
 
     if (users === '') {
+        fetchData();
         fetchUserData();
+        fetchAllUsers();
     }
 
     return (
