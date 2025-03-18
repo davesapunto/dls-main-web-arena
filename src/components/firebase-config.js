@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBLUcaU0TXNEnwk4tC9fkeSyNP6WV5rz3Q",
-  authDomain: "dark-league-arena.firebaseapp.com",
-  projectId: "dark-league-arena",
-  storageBucket: "dark-league-arena.firebasestorage.app",
-  messagingSenderId: "91275452067",
-  appId: "1:91275452067:web:16c0fe835382d0775b2916",
-  measurementId: "G-LV4NGQ07X8"
+  apiKey: "AIzaSyCBVqxR6mbSzwz0hRMpuYvg3bTJ85IGcYw",
+  authDomain: "cloud-pastries-98df5.firebaseapp.com",
+  projectId: "cloud-pastries-98df5",
+  storageBucket: "cloud-pastries-98df5.appspot.com",
+  messagingSenderId: "291294796685",
+  appId: "1:291294796685:web:7539731e2706dd43267bc4",
+  measurementId: "G-DXGRKKSWYZ"
 };
 
 const app = initializeApp(firebaseConfig);

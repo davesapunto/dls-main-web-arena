@@ -65,15 +65,13 @@ const ProfileView = () => {
             }
     };
 
-
-
     useEffect(() => { //load mga data isang beses lang
-        if (FRIENDS_PAGE === 0 && page === 1 && !displayUser) {
+        if (!displayUser && page === 2) {
             fetchData();
             fetchUserData();
             fetchAllUsers();
         }
-    }, [users, FRIENDS_PAGE, page, displayUser]);
+    }, [users, displayUser, page]);
 
     const RenderTournaments = () => {
 
@@ -173,7 +171,7 @@ const ProfileView = () => {
 
         const checkDuplicate = requests.some(data => data.id === users.id);
         const check_friend = users.friends.some(data => data.id === fetch.data().id)
-        //diko alam tong some nato HAHAH nisabi lang ng AI
+
         //pero yung some chinecheck niya each element kung may kaparehas ba
         if (checkDuplicate || check_friend) {
             alert('REQUEST ALREADY SENT');
@@ -361,21 +359,26 @@ const ProfileView = () => {
             </div>
             <div className="more-info">
                 <ul>
+                    <li onClick={() => setPage(1)}>TOURNAMENTS</li>
                     <li onClick={() => 
                         {
-                            setPage(1);
+                            setPage(2);
                             setFPP(0);
                         }
                     }>FRIENDS</li>
-                    <li onClick={() => setPage(2)}>TOURNAMENTS</li>
-                    <li onClick={() => setPage(3)}>LINKS</li>
+                    <li onClick={() => setPage(3)}>TEAMS</li>
+                    <li onClick={() => setPage(4)}>LINKS</li>
                 </ul>
             </div>
             <div className="Main-Content-Profile">
-                {page === 1 ? <RenderFriends/> : page === 2 ? <RenderTournaments/> : null}
+                {page === 1 ? <RenderTournaments/> : page === 2 ? <RenderFriends/> : null}
             </div>
         </div>
         );
+    }
+
+    if (users === '') {
+        fetchUserData();
     }
 
     return (
