@@ -42,12 +42,9 @@ const Signup = () => {
           wins: 0,
           losses: 0,
           tournaments: 0,
-          friends: {
-
-          },
-          friendRQ: {
-
-          }
+          friends: [],
+          friendRQ: [],
+          team: []
         }).then(() => {
           alert('USER CREATED');
           navigate('/Login');
@@ -79,6 +76,12 @@ const Signup = () => {
           email: user.email,
           username: user.displayName,
           darkcoins: 0,
+          wins: 0,
+          losses: 0,
+          tournaments: 0,
+          friends: [],
+          friendRQ: [],
+          team: []
         }).then(() => {
           alert('SIGNED UP WITH GOOGLE!');
           navigate('/dashboard');

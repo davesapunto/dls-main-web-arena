@@ -1,0 +1,29 @@
+.Teams {
+    width: 93%;
+    color: white;
+    border-radius: 50px;
+}
+
+.team-create {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#team-btn {
+    width: 15%;
+    height: 5vh;
+    border: none;
+    background-color: red;
+    border-radius: 10px;
+    color: white;
+    scale: 1;
+    transition: scale .3s ease;
+}
+
+#team-btn:hover {
+    scale: 1.1;
+    transition: scale .3s ease;
+    cursor: pointer;
+}

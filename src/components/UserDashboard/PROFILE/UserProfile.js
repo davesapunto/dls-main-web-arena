@@ -5,6 +5,7 @@ import { auth, DB } from "../../firebase-config";
 import { motion } from "motion/react";
 import { FaSearch } from "react-icons/fa";
 import DisplayUser from "./UserProfileDisplay";
+import Teams from "./Teams/Teams";
 
 const ProfileView = () => {
 
@@ -374,7 +375,7 @@ const ProfileView = () => {
                 </ul>
             </div>
             <div className="Main-Content-Profile">
-                {page === 1 ? <RenderTournaments/> : page === 2 ? <RenderFriends/> : null}
+                {page === 1 ? <RenderTournaments/> : page === 2 ? <RenderFriends/> : page === 3 ? <Teams/> : null}
             </div>
         </div>
         );
