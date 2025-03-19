@@ -73,11 +73,14 @@ const ProfileView = () => {
         }
     }, [users, displayUser, page]);
 
+
     const RenderTournaments = () => {
 
-        const filtered = tournaments.filter(t => t.id === users.id); //filters (ps. diko alam kung pede shortcutin to using if else eh sa iba ko nalang try)
-        const NameFiltered = filtered.filter(i => i.name === DISPLAYTOURNAMENTS);
-
+        const filtered = tournaments.filter(t => t.uid === users.id); //filters (ps. diko alam kung pede shortcutin to using if else eh sa iba ko nalang try)
+        const NameFiltered = filtered.filter(i => i.name === DISPLAYTOURNAMENTS 
+                                            || i.owner === DISPLAYTOURNAMENTS 
+                                            || i.tournamentId === DISPLAYTOURNAMENTS);
+        console.log(NameFiltered);
         const DataFiltered = NameFiltered.map((items, index) => 
             <motion.tr 
             initial={{opacity: 0, y: 75}}
