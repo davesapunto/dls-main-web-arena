@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import './Teams.css';
 import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { auth, DB } from "../../../firebase-config";
 
 const Teams = () => {
 
     const [page, setPage] = useState(1);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [header, setHeader] = useState(null);
+
     var hasTeam = false;
 
     const fetchData = async () => {
 
         try {
             const data = (await getDoc(doc(DB, 'users', auth.currentUser.uid))).data(); //data ng naka auth na user
-            
+
             if (data.team.length != 0) {
                 hasTeam = !hasTeam;
             } else {
@@ -20,8 +25,20 @@ const Teams = () => {
             }
 
         } catch (error) {
-
+            console.log(error.message);
         }
+
+    }
+
+    const submit = async () => {
+        const storage = getStorage();
+        let url = '';
+        const headerRef = ref(storage, `header/${header.name}`);
+        await uploadBytes(headerRef, header);
+
+        url = getDownloadURL(headerRef);
+
+        console.log(url);
 
     }
 
@@ -48,6 +65,31 @@ const Teams = () => {
                         <input type='text' placeholder="Team Name" required/>
                         <h2>Description</h2>
                         <input type='text' placeholder="Description" required/>
+                        <h2>TEAM BANNER</h2>
+                        <input type='file' style={{width: '95%'}} onChange={(e) => setHeader(e.target.files[0])}/><br></br>
+                        <div style=
+                        {
+                            {
+                                display: "flex",
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }
+                        }>
+                            <button style=
+                            {
+                                {
+                                    textAlign: 'center', 
+                                    marginTop: 50, 
+                                    width: 200, 
+                                    height: 60, 
+                                    borderRadius: 50,
+                                    cursor: 'pointer',
+                                    backgroundColor: 'grey',
+                                    color: 'white',
+                                    fontSize: 25
+                                }
+                            } onClick={submit}>SUBMIT</button>
+                        </div>
                     </form>
                 </div>
             </div>

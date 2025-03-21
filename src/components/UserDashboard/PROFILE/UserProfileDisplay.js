@@ -80,7 +80,7 @@ const DisplayUser = (data) => {
                     friends: s_u_filter
                 }).then(() => {
                     console.log('success');
-                    window.location.reload();
+                    
                 });
             });
 
