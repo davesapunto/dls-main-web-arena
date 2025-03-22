@@ -8,7 +8,7 @@ import DisplayUser from "./UserProfileDisplay";
 import Teams from "./Teams/Teams";
 
 const ProfileView = () => {
-
+    //gawin tong optimized use onsnapshot instead of getdocs
     const [users, setUser] = useState('');
     const [tournaments, setTournaments] = useState([]); 
     const [DISPLAYTOURNAMENTS, SETDISPLAY] = useState('');
