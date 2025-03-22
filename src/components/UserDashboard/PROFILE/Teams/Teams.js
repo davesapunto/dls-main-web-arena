@@ -12,6 +12,7 @@ const Teams = () => {
     const [loading, setLoading] = useState(false);
     const [hasTeam, setTeam] = useState(false);
     const [teams, setTeams] = useState([]);
+    const [players, setPlayers] = useState([]);
     let name = '';
     let description = '';
     let header = null;
@@ -22,11 +23,13 @@ const Teams = () => {
           try {
             const q = query(
               collection(DB, 'teams'),
-              where('player_id', '==', auth.currentUser.uid)
+              where('players', '==', auth.currentUser.uid)
             );
     
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
               const teamsData = querySnapshot.docs.map((doc) => doc.data());
+
+              console.log(teamsData);
               if (teamsData.length > 0) {
                 setTeam(true);
               } else {
@@ -52,7 +55,9 @@ const Teams = () => {
             const teamsCollection = collection(DB, 'teams');
             const unsubscribe = onSnapshot(teamsCollection, (querySnapshot) => {
               const teamsData = querySnapshot.docs.map((doc) => doc.data());
+              const players = teamsData.map(data => data.player_id);
               setTeams(teamsData);
+              
               setLoading(false);
             });
     
@@ -75,20 +80,26 @@ const Teams = () => {
                 let url = null;
                 const storage = getStorage();
                 const headerRef = ref(storage, `header/${Date.now()}_${header.name}`);
+                const user = auth.currentUser.uid;
                 await uploadBytes(headerRef, header).then(async () => {
                     url = await getDownloadURL(headerRef);
-                    await setDoc(doc(DB, 'teams', name), {
+                    await setDoc(doc(DB, 'teams', auth.currentUser.uid), {
                         owner: auth.currentUser.uid,
                         Name: name,
                         Desc: description,
                         Header: url,
-                        player_id: {
-                            playerID: auth.currentUser.uid
-                        }
-                    }).then(() => {
-                        alert('team created');
-                        setLoading(false);
-                        setTeam(true);
+                        players: []
+                    }).then(async () => {
+                        const teamData = await getDoc(doc(DB, 'teams', auth.currentUser.uid));
+                        const activeUser = await getDoc(doc(DB,'users', auth.currentUser.uid));
+                        await setDoc(doc(DB, 'teams', auth.currentUser.uid), {
+                            ...teamData.data(),
+                            players: [activeUser.data()]
+                        }).then(() => {
+                            alert('team created');
+                            setLoading(false);
+                            setTeam(true);
+                        });
                     });
                 });
                 
@@ -133,11 +144,36 @@ const Teams = () => {
 
     const DisplayTeam = () => {
 
-        const user_team = teams.filter(data => data.player_id.playerID === auth.currentUser.uid);
+        const user_team = teams.filter(data => data);
+        const data = user_team.map((data) => data.players);
+        let username = [];
+        data.map((data) => username = data);
+        const owner = username.filter(data => data.id === auth.currentUser.uid);
+        console.log(owner[0].username);
+        const displayUsername = username.map(data => 
+            <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
+                <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
+                    <h3 style={{marginTop: 10}}>{data.username}</h3>
+                </div>
+                <button style={{marginLeft: '55%', marginTop: 5, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
+            </div>
+        );
 
         const display = user_team.map(data => 
             <div>
-                <h1>{data.Name}</h1>
+                <img src={data.Header} style={{width: '100%', height: '50vh', objectFit: 'cover', borderRadius: 10}}/>
+                <h1 style={{textAlign: 'center'}}>{String(data.Name).toUpperCase()}</h1>
+                <div className="team-info-container">
+                    <div className="main-team-info">
+                        <h1>ABOUT US: {data.description}</h1>
+                    </div>
+                    <div className="main-team-info">
+                        <h1>JOIN US NOW!</h1>
+                        <h3>OWNER: {owner[0].username}</h3>
+                        <p>{String(data.Name).toUpperCase()} currently has {username.length}/6 members.</p>
+                        {displayUsername}
+                    </div>
+                </div>
             </div>
         );
 
@@ -209,9 +245,9 @@ const Teams = () => {
         );
     }
     
-    const MainTeam = teams.map(data => data.player_id.playerID);
-    const check = MainTeam.some(data => data === auth.currentUser.uid);
-
+    const MainTeam = teams.map(data => data.players);
+    const check = MainTeam.some((data , index) => data[index].id === auth.currentUser.uid);
+    
     return (
         <div className="Teams">
             {check ? (<DisplayTeam/>) : 

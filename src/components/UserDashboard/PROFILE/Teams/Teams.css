@@ -36,6 +36,23 @@
     padding: 0px;
     transform: translateY(300px);
 }
+.team-info-container {
+    width: 100%;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-team-info {
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-left: 20px;
+    width: 45%;
+    height: 65vh;
+    color: white;
+    text-align: center;
+}
 
 #team-btn:hover {
     scale: 1.1;
