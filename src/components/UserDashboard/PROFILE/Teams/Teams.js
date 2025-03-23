@@ -149,14 +149,30 @@ const Teams = () => {
         let username = [];
         data.map((data) => username = data);
         const owner = username.filter(data => data.id === auth.currentUser.uid);
-        console.log(owner[0].username);
-        const displayUsername = username.map(data => 
-            <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
-                <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
-                    <h3 style={{marginTop: 10}}>{data.username}</h3>
+        const players = username.filter(data=>data.id !== auth.currentUser.uid);
+
+
+        const displayUsername = players.map((data, index) => 
+            {
+                if (index < 6) { 
+                    return <>
+                    <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
+                        <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
+                            <h3 style={{marginTop: 10}}>{data.username}</h3>
+                        </div>
+                        <button style={{marginLeft: '55%', marginTop: 7, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
+                    </div>
+                    <button style={{width: 150, height: 50, color: 'white', backgroundColor: 'green', cursor: 'pointer', border:'none', borderRadius: 10}}>ADD MEMBERS</button>
+                    </>
+                } else {
+                    return <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
+                    <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
+                        <h3 style={{marginTop: 10}}>{data.username}</h3>
+                    </div>
+                    <button style={{marginLeft: '55%', marginTop: 7, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
                 </div>
-                <button style={{marginLeft: '55%', marginTop: 5, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
-            </div>
+                }
+            }
         );
 
         const display = user_team.map(data => 
@@ -165,12 +181,19 @@ const Teams = () => {
                 <h1 style={{textAlign: 'center'}}>{String(data.Name).toUpperCase()}</h1>
                 <div className="team-info-container">
                     <div className="main-team-info">
-                        <h1>ABOUT US: {data.description}</h1>
+                        <h1>ABOUT US</h1>
+                        <p>{data.Desc}</p>
                     </div>
                     <div className="main-team-info">
                         <h1>JOIN US NOW!</h1>
                         <h3>OWNER: {owner[0].username}</h3>
                         <p>{String(data.Name).toUpperCase()} currently has {username.length}/6 members.</p>
+                        <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
+                        <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
+                            <h3 style={{marginTop: 10}}>{owner[0].username}</h3>
+                        </div>
+                        <h3 style={{marginLeft: '55%', marginTop: 10,  height: 30, color:'white'}}>OWNER</h3>
+                        </div>
                         {displayUsername}
                     </div>
                 </div>
@@ -181,8 +204,33 @@ const Teams = () => {
         return (
             <div>
                 {display}
+                <button style={btnstyles.btn}>DELETE TEAM</button>
+                <button style={btnstyles.btnDel}>EDIT TEAM</button>
             </div>
         );
+    }
+
+    const btnstyles = {
+        btn: {
+            width: 150,
+            height: 50,
+            color: 'white',
+            border: 'none',
+            borderRadius: 10,
+            marginTop: 10,
+            backgroundColor: 'red',
+            cursor: 'pointer'
+        },
+        btnDel: {
+            width: 100,
+            height: 50,
+            color: 'white',
+            border: 'none',
+            borderRadius: 10,
+            backgroundColor: 'green',
+            marginLeft: 10,
+            cursor: 'pointer'
+        }
     }
 
     const CreateATeam = () => {
