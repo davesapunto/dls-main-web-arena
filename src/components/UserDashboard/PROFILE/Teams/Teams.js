@@ -22,18 +22,21 @@ const Teams = () => {
         const checkTeam = async () => {
 
             try {
+                let players = [];
                 const fetch_teams = await collection(DB, 'teams');
-
                 const fetch_docs = await getDocs(fetch_teams);
+                const data = fetch_docs.docs.map(data => data.data().players);
 
-                //console.log(fetch_docs.docs.map(data => data.data()));
+                for(let i = 0; i < data.length; i++) {
+                    players = data[i];
+                    setTeam(players.some(data => data.id === auth.currentUser.uid));
+                }
                 
             } catch (error) {
                 console.log(error.message);
             }
         }
         checkTeam();
-        
       }, []);
     
 
@@ -214,12 +217,9 @@ const Teams = () => {
         );
     }
     
-    const MainTeam = teams.map(data => data.players);
-    const check = MainTeam.some((data , index) => data[index].id === auth.currentUser.uid);
-    
     return (
         <div className="Teams">
-            {false ? (null) : 
+            {hasTeam ? (<h1>HAS A TEAM</h1>) : 
             (page === 1 ? <div style=
                     {
                         {
