@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './Teams.css';
-import { doc, getDoc, setDoc, collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, getDocs, query, where, onSnapshot, arrayUnion } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { auth, DB } from "../../../firebase-config";
 import { FaSearch } from "react-icons/fa";
@@ -18,34 +18,22 @@ const Teams = () => {
     let header = null;
 
 
-    useEffect(() => {
-        const fetchData = () => {
-          try {
-            const q = query(
-              collection(DB, 'teams'),
-              where('players', '==', auth.currentUser.uid)
-            );
-    
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-              const teamsData = querySnapshot.docs.map((doc) => doc.data());
+    useEffect(() => { // check kung may nakasaling team ba si user TBD sa office
+        const checkTeam = async () => {
 
-              console.log(teamsData);
-              if (teamsData.length > 0) {
-                setTeam(true);
-              } else {
-                setTeam(false);
-              }
-              setLoading(false); 
-            });
+            try {
+                const fetch_teams = await collection(DB, 'teams');
 
-            return () => unsubscribe();
-          } catch (error) {
-            console.error(error.message);
-            setLoading(false); 
-          }
-        };
-    
-        fetchData();
+                const fetch_docs = await getDocs(fetch_teams);
+
+                //console.log(fetch_docs.docs.map(data => data.data()));
+                
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        checkTeam();
+        
       }, []);
     
 
@@ -55,7 +43,6 @@ const Teams = () => {
             const teamsCollection = collection(DB, 'teams');
             const unsubscribe = onSnapshot(teamsCollection, (querySnapshot) => {
               const teamsData = querySnapshot.docs.map((doc) => doc.data());
-              const players = teamsData.map(data => data.player_id);
               setTeams(teamsData);
               
               setLoading(false);
@@ -111,8 +98,29 @@ const Teams = () => {
         }
     }
 
+    const JoinTeam = async (id) => {
+        try {
+            const fetch_current_user = (await getDoc(doc(DB, 'users', auth.currentUser.uid))).data();
+            
+            const fetch_selected_team = (await getDoc(doc(DB, 'teams', id.owner))).data();
+        
+            await setDoc(doc(DB, 'users', auth.currentUser.uid), {
+                ...fetch_current_user,
+                teams: [fetch_selected_team]
+            }).then(async () => {
+                await setDoc(doc(DB, 'teams', id.owner), {
+                    ...fetch_selected_team,
+                    players: arrayUnion(fetch_current_user)
+                }, {merge: true}).then(() => {
+                    alert('team joined');
+                });
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     const SearchTeams = () => {
-        console.log(teams.map(data => data.Header));
         const teaminfo = teams.map((data, index) => 
             {
                 if (index < 2) {
@@ -122,6 +130,7 @@ const Teams = () => {
                         <div style={{position: 'absolute'}}>
                             <h1 style={{marginLeft: 25}}>{data.Name}</h1>
                             <p>ID: {data.owner}</p>
+                            <button style={{zIndex: 999, marginLeft: 30, width: 100, height: 30, border:'none', backgroundColor: 'green', borderRadius:10, color: 'white', cursor: 'pointer'}} onClick={() => JoinTeam(data)}>JOIN TEAM</button>
                         </div>
                             <img src={data.Header} style={{width: 'inherit', height: 'inherit', objectFit: 'cover', borderRadius: 10}}/>
                         </div>
@@ -142,96 +151,8 @@ const Teams = () => {
         );
     }
 
-    const DisplayTeam = () => {
+    
 
-        const user_team = teams.filter(data => data);
-        const data = user_team.map((data) => data.players);
-        let username = [];
-        data.map((data) => username = data);
-        const owner = username.filter(data => data.id === auth.currentUser.uid);
-        const players = username.filter(data=>data.id !== auth.currentUser.uid);
-
-
-        const displayUsername = players.map((data, index) => 
-            {
-                if (index < 6) { 
-                    return <>
-                    <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
-                        <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
-                            <h3 style={{marginTop: 10}}>{data.username}</h3>
-                        </div>
-                        <button style={{marginLeft: '55%', marginTop: 7, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
-                    </div>
-                    <button style={{width: 150, height: 50, color: 'white', backgroundColor: 'green', cursor: 'pointer', border:'none', borderRadius: 10}}>ADD MEMBERS</button>
-                    </>
-                } else {
-                    return <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
-                    <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
-                        <h3 style={{marginTop: 10}}>{data.username}</h3>
-                    </div>
-                    <button style={{marginLeft: '55%', marginTop: 7, border:'none', backgroundColor: 'red', height: 30, borderRadius: 10, cursor: 'pointer', color:'white'}}>REMOVE</button>
-                </div>
-                }
-            }
-        );
-
-        const display = user_team.map(data => 
-            <div>
-                <img src={data.Header} style={{width: '100%', height: '50vh', objectFit: 'cover', borderRadius: 10}}/>
-                <h1 style={{textAlign: 'center'}}>{String(data.Name).toUpperCase()}</h1>
-                <div className="team-info-container">
-                    <div className="main-team-info">
-                        <h1>ABOUT US</h1>
-                        <p>{data.Desc}</p>
-                    </div>
-                    <div className="main-team-info">
-                        <h1>JOIN US NOW!</h1>
-                        <h3>OWNER: {owner[0].username}</h3>
-                        <p>{String(data.Name).toUpperCase()} currently has {username.length}/6 members.</p>
-                        <div style={{width: '95%', height: '5vh', border: '1px solid white', margin: 20, borderRadius: 20, display: 'flex'}}>
-                        <div style={{width: '30%', height: 'inherit', textAlign: 'left'}}>
-                            <h3 style={{marginTop: 10}}>{owner[0].username}</h3>
-                        </div>
-                        <h3 style={{marginLeft: '55%', marginTop: 10,  height: 30, color:'white'}}>OWNER</h3>
-                        </div>
-                        {displayUsername}
-                    </div>
-                </div>
-            </div>
-        );
-
-        
-        return (
-            <div>
-                {display}
-                <button style={btnstyles.btn}>DELETE TEAM</button>
-                <button style={btnstyles.btnDel}>EDIT TEAM</button>
-            </div>
-        );
-    }
-
-    const btnstyles = {
-        btn: {
-            width: 150,
-            height: 50,
-            color: 'white',
-            border: 'none',
-            borderRadius: 10,
-            marginTop: 10,
-            backgroundColor: 'red',
-            cursor: 'pointer'
-        },
-        btnDel: {
-            width: 100,
-            height: 50,
-            color: 'white',
-            border: 'none',
-            borderRadius: 10,
-            backgroundColor: 'green',
-            marginLeft: 10,
-            cursor: 'pointer'
-        }
-    }
 
     const CreateATeam = () => {
         return (
@@ -298,7 +219,7 @@ const Teams = () => {
     
     return (
         <div className="Teams">
-            {check ? (<DisplayTeam/>) : 
+            {false ? (null) : 
             (page === 1 ? <div style=
                     {
                         {
