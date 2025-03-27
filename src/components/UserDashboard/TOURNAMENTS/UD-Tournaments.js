@@ -358,7 +358,7 @@ const UDTournaments = () => {
     return (
         <Element name="tournaments">
             <div className="tournaments-page">
-                <h1 className="heading">TOURNAMENTS</h1>
+                
                 
                 {/* Game Filter Options */}
                 <div className="games-container">

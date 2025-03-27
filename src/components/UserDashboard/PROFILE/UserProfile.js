@@ -8,6 +8,7 @@ import DisplayUser from "./UserProfileDisplay";
 import Teams from "./Teams/Teams";
 import { FaCamera } from "react-icons/fa";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import SocialLinks from './SocialLinks';
 
 const ProfileView = () => {
     //gawin tong optimized use onsnapshot instead of getdocs
@@ -559,7 +560,7 @@ const ProfileView = () => {
                     </ul>
                 </div>
                 <div className="Main-Content-Profile">
-                    {page === 1 ? <RenderTournaments/> : page === 2 ? <RenderFriends/> : page === 3 ? <Teams/> : null}
+                    {page === 1 ? <RenderTournaments/> : page === 2 ? <RenderFriends/> : page === 3 ? <Teams/> : page === 4 ? <SocialLinks user={users} /> : null}
                 </div>
             </div>
         );
